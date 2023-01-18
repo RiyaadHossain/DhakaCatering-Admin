@@ -5,24 +5,24 @@ import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import Loading from "../../components/Loading";
-import PageHeader from "../../components/PageHeader";
+import Loading from "../../../components/Loading";
+import PageHeader from "../../../components/PageHeader";
 import {
   useGetItemQuery,
   useUpdateItemMutation,
-} from "../../features/item/itemAPI";
-import { getToken } from "../../utils/token";
+} from "../../../features/item/itemAPI";
+import { getToken } from "../../../utils/token";
 
-export default function UpdateItem() {
+export default function UpdatePackage() {
   const token = getToken();
   const { id } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const MySwal = withReactContent(Swal);
   const [loading, setLoading] = useState(false);
   const imgStorage_key = "b20e07a3b33d3ccbb413087c3d9d148d";
-  const { data, isLoading: itemLoading } = useGetItemQuery(id);
-  const [updateItem, { isError, isSuccess, isLoading, error }] =
-    useUpdateItemMutation();
+//   const { data, isLoading: itemLoading } = useGetItemQuery(id);
+//   const [updateItem, { isError, isSuccess, isLoading, error }] =
+//     useUpdateItemMutation();
 
   const {
     reset,
@@ -30,26 +30,27 @@ export default function UpdateItem() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  
-  useEffect(() => {
-    if (isSuccess) {
-      MySwal.fire({
-        title: <strong>Great!</strong>,
-        html: <span>Updated item Successfully.</span>,
-        icon: "success",
-      });
-      navigate('/items')
-    }
 
-    if (isError) toast.error(error.data.error, { id: "err" });
-  }, [loading, isLoading, isError, error, isSuccess, MySwal, navigate]);
+//   useEffect(() => {
+//     if (isSuccess) {
+//       MySwal.fire({
+//         title: <strong>Great!</strong>,
+//         html: <span>Updated item Successfully.</span>,
+//         icon: "success",
+//       });
+//       navigate("/items");
+//     }
 
-  if (loading || isLoading || itemLoading) return <Loading />;
+//     if (isError) toast.error(error.data.error, { id: "err" });
+//   }, [loading, isLoading, isError, error, isSuccess, MySwal, navigate]);
+
+//   if (loading || isLoading || itemLoading) return <Loading />;
+    
+    const data = {data: {name: '', price: '', description: '', image: {title: '', url: ''}, category: '', status: ''}}
 
   const { name, price, description, image, category, status } = data?.data;
 
-  const handleUpdate = async(itemData) => {
-
+  const handleUpdate = async (itemData) => {
     setLoading(true);
     const imageData = itemData?.imgURL[0];
     const formData = new FormData();
@@ -63,7 +64,7 @@ export default function UpdateItem() {
         image: { title: data.data.title, url: data.data.url },
       };
 
-      updateItem({ token, itemData, id });
+    //   updateItem({ token, itemData, id });
       setLoading(false);
     } else {
       MySwal.fire({
@@ -73,7 +74,7 @@ export default function UpdateItem() {
       });
     }
 
-    reset()
+    reset();
   };
 
   return (
@@ -118,14 +119,16 @@ export default function UpdateItem() {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Image : <span className="text-xs">{image.title}</span></span>
+                <span className="label-text">
+                  Image : <span className="text-xs">{image.title}</span>
+                </span>
               </label>
               <input
                 type="file"
                 {...register("imgURL", { required: true })}
                 className="file-input w-full"
               />
-              
+
               {errors.imgURL && (
                 <span className="text-error text-xs text-left mt-1">
                   Image is required

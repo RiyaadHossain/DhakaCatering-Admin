@@ -1,6 +1,11 @@
 import React from "react";
 
 export default function PageHeader({ title, quantity, button }) {
+
+  if (quantity || quantity >= 0) {
+    quantity = quantity.toString()
+  }
+    
   return (
     <div
       className={`mt-5 mb-5 flex justify-between items-end ${
@@ -18,12 +23,12 @@ export default function PageHeader({ title, quantity, button }) {
           )}
         </h3>
       </div>
-      {quantity && !button && (
+      {(quantity && !button) && (
         <div className="btn w-9 h-9 md:w-12 md:h-12 rounded-full btn-sm sm:btn-md">
           {quantity}
         </div>
       )}
-      {button && button}
+      {(quantity !== '0' && button) && button}
     </div>
   );
 }

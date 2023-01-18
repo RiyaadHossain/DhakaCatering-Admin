@@ -1,10 +1,10 @@
 import React from "react";
 import { BsPlusCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import ItemTableRow from "../../components/ItemTableRow";
-import Loading from "../../components/Loading";
-import PageHeader from "../../components/PageHeader";
-import { useGetItemsQuery } from "../../features/item/itemAPI";
+import ItemTableRow from "../../../components/ItemTableRow";
+import Loading from "../../../components/Loading";
+import PageHeader from "../../../components/PageHeader";
+import { useGetItemsQuery } from "../../../features/item/itemAPI";
 
 export default function Items() {
   const navigate = useNavigate();

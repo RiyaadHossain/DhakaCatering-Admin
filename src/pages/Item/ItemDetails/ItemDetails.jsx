@@ -1,13 +1,13 @@
 import React from "react";
 import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
-import Loading from "../../components/Loading";
-import PageHeader from "../../components/PageHeader";
-import PreviousBtn from "../../components/PreviousBtn";
-import { useGetItemQuery } from "../../features/item/itemAPI";
+import Loading from "../../../components/Loading";
+import PageHeader from "../../../components/PageHeader";
+import PreviousBtn from "../../../components/PreviousBtn";
+import { useGetItemQuery } from "../../../features/item/itemAPI";
 import Navigation from "./Navigation";
 
-export default function Item() {
+export default function ItemDetails() {
   const { id } = useParams();
   const { data, isFetching } = useGetItemQuery(id);
   if (isFetching) return <Loading />;

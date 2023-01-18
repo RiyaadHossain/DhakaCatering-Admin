@@ -1,8 +1,8 @@
 import React from "react";
-import PageHeader from "../../components/PageHeader";
-import PreviousBtn from "../../components/PreviousBtn";
+import PageHeader from "../../../components/PageHeader";
+import PreviousBtn from "../../../components/PreviousBtn";
 
-export default function Offer() {
+export default function OfferDetails() {
   return (
     <>
       <div className="max-w-[820px]">

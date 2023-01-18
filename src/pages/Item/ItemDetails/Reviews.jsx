@@ -1,5 +1,5 @@
 import React from "react";
-import ReviewCard from "../../components/ReviewCard";
+import ReviewCard from "../../../components/ReviewCard";
 
 export default function Reviews() {
   return (

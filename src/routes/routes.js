@@ -4,20 +4,24 @@ import Admins from "../pages/Admins/Admins";
 import SignIn from "../pages/AuthAdmin/SignIn";
 import MakeAdmin from "../pages/AuthAdmin/MakeAdmin";
 import Home from "../pages/Home/Home";
-import Item from "../pages/Item/Item";
-import Items from "../pages/Items/Items";
 import LeaderBoard from "../pages/LeaderBoard/LeaderBoard";
 import NotFound from "../pages/NotFound/NotFound";
-import Offer from "../pages/Offer/Offer";
-import Offers from "../pages/Offers/Offers";
 import Profile from "../pages/Profile/Profile";
 import User from "../pages/User/User";
 import Users from "../pages/Users/Users";
 import PrivateRoute from "../utils/PrivateRoute";
-import Package from "../pages/Package/Package";
-import Packages from "../pages/Packages/Packages";
-import AddItem from "../pages/Items/AddItem";
-import UpdateItem from "../pages/Items/UpdateItem";
+import Items from "../pages/Item/AllItems/Items";
+import AddItem from "../pages/Item/AllItems/AddItem";
+import UpdateItem from "../pages/Item/AllItems/UpdateItem";
+import Packages from "../pages/Package/AllPackages/Packages";
+import PackageDetails from "../pages/Package/PackageDetails/PackageDetails";
+import ItemDetails from "../pages/Item/ItemDetails/ItemDetails";
+import AddPackage from "../pages/Package/AllPackages/AddPackage";
+import UpdatePackage from "../pages/Package/AllPackages/UpdatePackage";
+import Offers from "../pages/Offer/AllOffers/Offers";
+import OfferDetails from "../pages/Offer/OfferDetails/OfferDetails";
+import AddOffer from "../pages/Offer/AllOffers/AddOffer";
+import UpdateOffer from "../pages/Offer/AllOffers/UpdateOffer";
 
 
 export const routes = createBrowserRouter([
@@ -43,7 +47,7 @@ export const routes = createBrowserRouter([
             },
             {
                 path: "item/:id",
-                element: <Item />
+                element: <ItemDetails />
             },
             {
                 path: "packages",
@@ -51,7 +55,15 @@ export const routes = createBrowserRouter([
             },
             {
                 path: "package/:id",
-                element: <Package />
+                element: <PackageDetails />
+            },
+            {
+                path: "add-package",
+                element: <AddPackage />
+            },
+            {
+                path: "update-package/:id",
+                element: <UpdatePackage />
             },
             {
                 path: "offers",
@@ -59,7 +71,15 @@ export const routes = createBrowserRouter([
             },
             {
                 path: "offer/:id",
-                element: <Offer />
+                element: <OfferDetails />
+            },
+            {
+                path: "add-offer",
+                element: <AddOffer />
+            },
+            {
+                path: "update-offer/:id",
+                element: <UpdateOffer />
             },
             {
                 path: "users",
