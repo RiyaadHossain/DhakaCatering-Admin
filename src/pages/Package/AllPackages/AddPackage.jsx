@@ -8,8 +8,11 @@ import Loading from "../../../components/Loading";
 import { usePostPackageMutation } from "../../../features/package/packageAPI";
 import { toast } from "react-hot-toast";
 import { getToken } from "../../../utils/token";
+import ChooseItem from "../../../components/ChooseItem";
 
 export default function AddPackage() {
+  let [items, setItems] = useState([]);
+  let [totalPrice, setTotalPrice] = useState(0);
   const token = getToken();
   const MySwal = withReactContent(Swal);
   const [loading, setLoading] = useState(false);
@@ -29,6 +32,7 @@ export default function AddPackage() {
 
   const submitForm = async (packageData) => {
     setLoading(true);
+    items = items.map((item) => item.id);
     const imageData = packageData?.imgURL[0];
     const formData = new FormData();
     formData.append("image", imageData);
@@ -37,6 +41,7 @@ export default function AddPackage() {
     if (data.success) {
       packageData = {
         ...packageData,
+        items,
         image: { title: data.data.title, url: data.data.url },
       };
 
@@ -69,7 +74,7 @@ export default function AddPackage() {
 
   return (
     <div>
-      <PageHeader title="Add Package"  />
+      <PageHeader title="Add Package" />
       <div className="card flex-shrink-0 max-w-4xl mx-auto lg:mt-14 shadow-2xl bg-slate-200">
         <div className="card-body">
           <form
@@ -128,14 +133,14 @@ export default function AddPackage() {
                 <span className="label-text">Category</span>
               </label>
               <select
-                defaultValue="All"
+                defaultValue="Bronze"
                 className="select w-full"
                 {...register("category")}
               >
-                <option value="All">All</option>
-                <option value="Breakfast">Breakfast</option>
-                <option value="Lunch">Lunch</option>
-                <option value="Dinner">Dinner</option>
+                <option value="Bronze">Bronze</option>
+                <option value="Silver">Silver</option>
+                <option value="Golden">Golden</option>
+                <option value="Diamond">Diamond</option>
               </select>
             </div>
             <div className="form-control">
@@ -174,6 +179,14 @@ export default function AddPackage() {
                 </label>
               </div>
             </div>
+            <div className="flex flex-col gap-2">
+              {items.length ? (
+                <span className="text-sm relative -bottom-1">{` ${items.length} Items Selected`}</span>
+              ) : null}
+              <label htmlFor="my-modal" className="btn">
+                {items.length ? `ReSelect!` : "Select Item"}
+              </label>
+            </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Description</span>
@@ -203,6 +216,12 @@ export default function AddPackage() {
           </form>
         </div>
       </div>
+      <ChooseItem
+        items={items}
+        setItems={setItems}
+        totalPrice={totalPrice}
+        setTotalPrice={setTotalPrice}
+      />
     </div>
   );
 }
