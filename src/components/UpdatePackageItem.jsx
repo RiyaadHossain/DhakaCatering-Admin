@@ -3,7 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useGetItemsQuery } from "../features/item/itemAPI";
 import Loading from "./Loading";
 
-export default function ChooseItem({ items, setItems, totalPrice, setTotalPrice }) {
+export default function UpdatePackageItem({
+  items,
+  setItems,
+  totalPrice,
+  setTotalPrice,
+}) {
   const navigate = useNavigate();
   const { data, isFetching, isError } = useGetItemsQuery();
 
@@ -13,23 +18,21 @@ export default function ChooseItem({ items, setItems, totalPrice, setTotalPrice 
   const handleCheck = (e) => {
     let { checked, value } = e.target;
     value = JSON.parse(value);
-
     if (checked) {
-      items = [...items, value]
-      setItems(items)
+      items = [...items, value];
+      setItems(items);
     } else {
-      items = items.filter((item) => item.id !== value.id);
-      setItems(items)
+      items = items.filter((item) => item._id !== value.id);
+      setItems(items);
     }
 
-    totalPrice = 0
-    console.log(totalPrice);
+    totalPrice = 0;
+
     items.forEach((item) => {
-      setTotalPrice(totalPrice += item.price);
+      setTotalPrice((totalPrice += item.price));
     });
-
   };
-
+console.log(items);
   return (
     <div>
       <input type="checkbox" id="my-modal" className="modal-toggle" />
@@ -59,6 +62,7 @@ export default function ChooseItem({ items, setItems, totalPrice, setTotalPrice 
                         price: item.price,
                       })}
                       type="checkbox"
+                      defaultChecked={items.map(e => e._id === item._id)}
                       className="checkbox checkbox-sm"
                     />
                     <span className="label-text">
@@ -69,7 +73,10 @@ export default function ChooseItem({ items, setItems, totalPrice, setTotalPrice 
               ))}
             </div>
             <div className="mt-6 ml-2">
-              <h5 className="font-semibold"> Total Item: {items.length ? totalPrice : 0}৳</h5>
+              <h5 className="font-semibold">
+                {" "}
+                Total Item: {items.length ? totalPrice : 0}৳
+              </h5>
             </div>
           </div>
           <div className="modal-action">

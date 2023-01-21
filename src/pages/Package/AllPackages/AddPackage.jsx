@@ -32,7 +32,7 @@ export default function AddPackage() {
 
   const submitForm = async (packageData) => {
     setLoading(true);
-    items = items.map((item) => item.id);
+    items = items.map((item) => item.id );
     const imageData = packageData?.imgURL[0];
     const formData = new FormData();
     formData.append("image", imageData);
@@ -41,7 +41,7 @@ export default function AddPackage() {
     if (data.success) {
       packageData = {
         ...packageData,
-        items,
+        allItems: {items, totalPrice},
         image: { title: data.data.title, url: data.data.url },
       };
 
@@ -56,6 +56,8 @@ export default function AddPackage() {
     }
 
     reset();
+    setItems([])
+    setTotalPrice(0)
   };
 
   useEffect(() => {
@@ -181,7 +183,7 @@ export default function AddPackage() {
             </div>
             <div className="flex flex-col gap-2">
               {items.length ? (
-                <span className="text-sm relative -bottom-1">{` ${items.length} Items Selected`}</span>
+                <span className="text-sm text-info relative -bottom-1">{` ${items.length} Items Selected (${totalPrice}tk)`}</span>
               ) : null}
               <label htmlFor="my-modal" className="btn">
                 {items.length ? `ReSelect!` : "Select Item"}

@@ -33,6 +33,7 @@ export default function Packages() {
               <tr>
                 <th></th>
                 <th>Name</th>
+                <th>Items</th>
                 <th>Price</th>
                 <th>Status</th>
                 <th></th>

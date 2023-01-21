@@ -1,28 +1,31 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "react-hot-toast";
-import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
-import Loading from "../../../components/Loading";
-import PageHeader from "../../../components/PageHeader";
-import {
-  useGetItemQuery,
-  useUpdateItemMutation,
-} from "../../../features/item/itemAPI";
+import { toast } from "react-hot-toast";
+import { useForm } from "react-hook-form";
 import { getToken } from "../../../utils/token";
+import Loading from "../../../components/Loading";
+import React, { useEffect, useState } from "react";
+import PageHeader from "../../../components/PageHeader";
+import withReactContent from "sweetalert2-react-content";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  useGetPackageQuery,
+  useUpdatePackageMutation,
+} from "../../../features/package/packageAPI";
+import UpdatePackageItem from "../../../components/UpdatePackageItem";
 
 export default function UpdatePackage() {
   const token = getToken();
   const { id } = useParams();
   const navigate = useNavigate();
+  let [items, setItems] = useState([]);
+  let [totalPrice, setTotalPrice] = useState(0);
   const MySwal = withReactContent(Swal);
   const [loading, setLoading] = useState(false);
   const imgStorage_key = "b20e07a3b33d3ccbb413087c3d9d148d";
-//   const { data, isLoading: itemLoading } = useGetItemQuery(id);
-//   const [updateItem, { isError, isSuccess, isLoading, error }] =
-//     useUpdateItemMutation();
+  const { data, isLoading: itemLoading } = useGetPackageQuery(id);
+  const [UpdatePackage, { isError, isSuccess, isLoading, error }] =
+    useUpdatePackageMutation();
 
   const {
     reset,
@@ -31,40 +34,51 @@ export default function UpdatePackage() {
     formState: { errors },
   } = useForm();
 
-//   useEffect(() => {
-//     if (isSuccess) {
-//       MySwal.fire({
-//         title: <strong>Great!</strong>,
-//         html: <span>Updated item Successfully.</span>,
-//         icon: "success",
-//       });
-//       navigate("/items");
-//     }
+  useEffect(() => {
+    if (isSuccess) {
+      MySwal.fire({
+        title: <strong>Great!</strong>,
+        html: <span>Updated item Successfully.</span>,
+        icon: "success",
+      });
+      navigate("/packages");
+    }
 
-//     if (isError) toast.error(error.data.error, { id: "err" });
-//   }, [loading, isLoading, isError, error, isSuccess, MySwal, navigate]);
+    if (isError) toast.error(error.data.error, { id: "err" });
+  }, [loading, isLoading, isError, error, isSuccess, MySwal, navigate]);
 
-//   if (loading || isLoading || itemLoading) return <Loading />;
-    
-    const data = {data: {name: '', price: '', description: '', image: {title: '', url: ''}, category: '', status: ''}}
+  if (loading || isLoading || itemLoading) return <Loading />;
 
-  const { name, price, description, image, category, status } = data?.data;
+  const { name, price, description, image, category, status, allItems } =
+    data?.data;
 
-  const handleUpdate = async (itemData) => {
+  const handleUpdate = async (packageData) => {
+    let data;
     setLoading(true);
-    const imageData = itemData?.imgURL[0];
-    const formData = new FormData();
-    formData.append("image", imageData);
-    const URL = `https://api.imgbb.com/1/upload?key=${imgStorage_key}`;
-    const { data } = await axios.post(URL, formData);
+    const imageData = packageData?.imgURL[0];
+
+    if (imageData) {
+      const formData = new FormData();
+      formData.append("image", imageData);
+      const URL = `https://api.imgbb.com/1/upload?key=${imgStorage_key}`;
+      data = await (await axios.post(URL, formData)).data;
+    }
 
     if (data.success) {
-      itemData = {
-        ...itemData,
+      packageData = {
+        ...packageData,
         image: { title: data.data.title, url: data.data.url },
       };
 
-    //   updateItem({ token, itemData, id });
+      UpdatePackage({ token, packageData, id });
+      setLoading(false);
+    } else if (!imageData) {
+      packageData = {
+        ...packageData,
+        image: { title: image.title, url: image.url },
+      };
+
+      UpdatePackage({ token, packageData, id });
       setLoading(false);
     } else {
       MySwal.fire({
@@ -75,8 +89,14 @@ export default function UpdatePackage() {
     }
 
     reset();
+    setItems([])
+    setTotalPrice(0)
   };
 
+  const setValue = () => {
+    setItems(allItems.items)
+    setTotalPrice(allItems.totalPrice)
+  }
   return (
     <div>
       <PageHeader title="Update Item" />
@@ -120,21 +140,96 @@ export default function UpdatePackage() {
             <div className="form-control">
               <label className="label">
                 <span className="label-text">
-                  Image : <span className="text-xs">{image.title}</span>
+                  Image:{" "}
+                  <a
+                    href={image.url}
+                    rel="noreferrer"
+                    target="_blank"
+                    className="text-xs link link-hover"
+                  >
+                    {image.title}
+                  </a>
                 </span>
               </label>
               <input
                 type="file"
-                {...register("imgURL", { required: true })}
+                {...register("imgURL")}
                 className="file-input w-full"
               />
-
-              {errors.imgURL && (
-                <span className="text-error text-xs text-left mt-1">
-                  Image is required
-                </span>
-              )}
             </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Category</span>
+              </label>
+              <select
+                className="select w-full"
+                {...register("category", { required: true })}
+                defaultValue={category}
+              >
+                <option>Bronze</option>
+                <option>Silver</option>
+                <option>Golden</option>
+                <option>Dimond</option>
+              </select>
+            </div>
+            <div className="form-control flex-row gap-20 mt-5 items-center">
+              <div>
+                <label className="label">
+                  <span className="label-text">Status</span>
+                </label>
+                <div className="flex gap-5 relative -top-2">
+                  <label
+                    htmlFor="active-field"
+                    className="label cursor-pointer"
+                  >
+                    <div className="flex items-center gap-1">
+                      <input
+                        {...register("status", { required: true })}
+                        id="active-field"
+                        type="radio"
+                        value="active"
+                        className="radio checked:bg-blue-500"
+                        defaultChecked={status === "active"}
+                      />
+                      <span className="label-text font-semibold text-xs">
+                        Active
+                      </span>
+                    </div>
+                  </label>
+                  <label
+                    htmlFor="unavailable-field"
+                    className="label cursor-pointer"
+                  >
+                    <div className="flex items-center gap-1">
+                      <input
+                        {...register("status", { required: true })}
+                        id="unavailable-field"
+                        type="radio"
+                        value="unavailable"
+                        className="radio checked:bg-red-500"
+                        defaultChecked={status === "unavailable"}
+                      />
+                      <span className="label-text font-semibold text-xs">
+                        Unavailable
+                      </span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+              <div className="flex flex-col gap-2">
+                {allItems.items.length ? (
+                  <span className="text-sm text-info relative -bottom-1">{` ${items.length} Items Selected (${totalPrice}tk)`}</span>
+                ) : null}
+                <label
+                  htmlFor="my-modal"
+                  className="btn btn-wide"
+                  onClick={setValue}
+                >
+                  {allItems.items.length ? `ReSelect!` : "Select Item"}
+                </label>
+              </div>
+            </div>
+
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Description</span>
@@ -153,64 +248,6 @@ export default function UpdatePackage() {
                 </span>
               )}
             </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Category</span>
-              </label>
-              <select
-                className="select w-full"
-                {...register("category", { required: true })}
-                defaultValue={category}
-              >
-                <option>Breakfast</option>
-                <option>Lunch</option>
-                <option>Dinner</option>
-                <option>All</option>
-              </select>
-            </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Status</span>
-              </label>
-              <div className="flex gap-5 relative -top-2">
-                <label htmlFor="active-field" className="label cursor-pointer">
-                  <div className="flex items-center gap-1">
-                    <input
-                      {...register("status", { required: true })}
-                      id="active-field"
-                      type="radio"
-                      // name="status"
-                      value="active"
-                      className="radio checked:bg-blue-500"
-                      defaultChecked={status === "active"}
-                    />
-                    <span className="label-text font-semibold text-xs">
-                      Active
-                    </span>
-                  </div>
-                </label>
-                <label
-                  htmlFor="unavailable-field"
-                  className="label cursor-pointer"
-                >
-                  <div className="flex items-center gap-1">
-                    <input
-                      {...register("status", { required: true })}
-                      id="unavailable-field"
-                      type="radio"
-                      // name="status"
-                      value="unavailable"
-                      className="radio checked:bg-red-500"
-                      defaultChecked={status === "unavailable"}
-                    />
-                    <span className="label-text font-semibold text-xs">
-                      Unavailable
-                    </span>
-                  </div>
-                </label>
-              </div>
-            </div>
-            <div className="form-control"></div>
             <div className="form-control mx-auto mt-6">
               <button
                 type="submit"
@@ -222,6 +259,12 @@ export default function UpdatePackage() {
           </form>
         </div>
       </div>
+      <UpdatePackageItem
+        items={items}
+        setItems={setItems}
+        totalPrice={totalPrice}
+        setTotalPrice={setTotalPrice}
+      />
     </div>
   );
 }

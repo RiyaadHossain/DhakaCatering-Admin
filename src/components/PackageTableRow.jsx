@@ -17,7 +17,7 @@ export default function PackageTableRow({ item, i }) {
     useDeletePackageMutation();
 
   const [
-    updateItem,
+    updatePackage,
     {
       isError: isErrorUpdate,
       isLoading: isLoadingUpdate,
@@ -26,7 +26,7 @@ export default function PackageTableRow({ item, i }) {
     },
   ] = useUpdatePackageMutation();
   const navigate = useNavigate();
-  const goToPage = () => navigate(`/item/${item._id}`);
+  const goToPage = () => navigate(`/package/${item._id}`);
   const token = getToken();
 
   const deleteItem = (id) => {
@@ -69,7 +69,8 @@ export default function PackageTableRow({ item, i }) {
   if (isLoading) return <Loading />;
 
   const handleUpdate = (status) => {
-    updateItem({ token, id: item._id, itemData: { status } });
+    console.log(status)
+    updatePackage({ token, id: item._id, packageData: { status } });
   };
 
   return (
@@ -88,6 +89,7 @@ export default function PackageTableRow({ item, i }) {
           </div>
         </div>
       </td>
+      <td>{item.allItems.length}</td>
       <td>{item.price}</td>
       <td>
         {item.status === "active" ? (
@@ -105,7 +107,7 @@ export default function PackageTableRow({ item, i }) {
             <BsTrashFill className="text-lg text-gray-700" />
           </button>
           <button
-            onClick={() => navigate(`/update-item/${item._id}`)}
+            onClick={() => navigate(`/update-package/${item._id}`)}
             className="btn btn-info btn-xs md:btn-sm"
           >
             <BsPencilFill className="text-lg text-gray-700" />
