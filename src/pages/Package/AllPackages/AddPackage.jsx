@@ -32,7 +32,7 @@ export default function AddPackage() {
 
   const submitForm = async (packageData) => {
     setLoading(true);
-    items = items.map((item) => item.id );
+    items = items.map((item) => item.id);
     const imageData = packageData?.imgURL[0];
     const formData = new FormData();
     formData.append("image", imageData);
@@ -41,7 +41,7 @@ export default function AddPackage() {
     if (data.success) {
       packageData = {
         ...packageData,
-        allItems: {items, totalPrice},
+        allItems: { items, totalPrice },
         image: { title: data.data.title, url: data.data.url },
       };
 
@@ -56,8 +56,8 @@ export default function AddPackage() {
     }
 
     reset();
-    setItems([])
-    setTotalPrice(0)
+    setItems([]);
+    setTotalPrice(0);
   };
 
   useEffect(() => {
@@ -130,65 +130,68 @@ export default function AddPackage() {
                 </span>
               )}
             </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Category</span>
-              </label>
-              <select
-                defaultValue="Bronze"
-                className="select w-full"
-                {...register("category")}
-              >
-                <option value="Bronze">Bronze</option>
-                <option value="Silver">Silver</option>
-                <option value="Golden">Golden</option>
-                <option value="Diamond">Diamond</option>
-              </select>
-            </div>
-            <div className="form-control">
-              <label className="label" htmlFor="status">
-                <span className="label-text">Status</span>
-              </label>
-              <div className="flex gap-5 relative ">
-                <label className="label cursor-pointer">
-                  <div className="flex items-center gap-1">
-                    <input
-                      type="radio"
-                      name="radio-10"
-                      className="radio checked:bg-blue-500"
-                      {...register("status")}
-                      value="active"
-                      defaultChecked
-                    />
-                    <span className="label-text font-semibold text-xs">
-                      Active
-                    </span>
-                  </div>
+            <div className="form-control flex-row gap-5 md:gap-16 justify-around items-center flex-wrap">
+              <div className="form-control min-w-[200px]">
+                <label className="label">
+                  <span className="label-text">Category</span>
                 </label>
-                <label className="label cursor-pointer">
-                  <div className="flex items-center gap-1">
-                    <input
-                      type="radio"
-                      name="radio-10"
-                      className="radio checked:bg-red-500"
-                      {...register("status")}
-                      value="unavailable"
-                    />
-                    <span className="label-text font-semibold text-xs">
-                      Unavailable
-                    </span>
-                  </div>
+                <select
+                  defaultValue="Bronze"
+                  className="select w-full"
+                  {...register("category")}
+                >
+                  <option value="Bronze">Bronze</option>
+                  <option value="Silver">Silver</option>
+                  <option value="Golden">Golden</option>
+                  <option value="Diamond">Diamond</option>
+                </select>
+              </div>
+              <div>
+                <label className="label" htmlFor="status">
+                  <span className="label-text">Status</span>
+                </label>
+                <div className="flex gap-5 relative ">
+                  <label className="label cursor-pointer">
+                    <div className="flex items-center gap-1">
+                      <input
+                        type="radio"
+                        name="radio-10"
+                        className="radio checked:bg-blue-500"
+                        {...register("status")}
+                        value="active"
+                        defaultChecked
+                      />
+                      <span className="label-text font-semibold text-xs">
+                        Active
+                      </span>
+                    </div>
+                  </label>
+                  <label className="label cursor-pointer">
+                    <div className="flex items-center gap-1">
+                      <input
+                        type="radio"
+                        name="radio-10"
+                        className="radio checked:bg-red-500"
+                        {...register("status")}
+                        value="unavailable"
+                      />
+                      <span className="label-text font-semibold text-xs">
+                        Unavailable
+                      </span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+              <div className="flex flex-col gap-2">
+                {items.length ? (
+                  <span className="text-sm text-info relative -bottom-1">{` ${items.length} Items (${totalPrice}tk)`}</span>
+                ) : null}
+                <label htmlFor="my-modal" className="btn btn-wide">
+                  {items.length ? `ReSelect!` : "Select Item"}
                 </label>
               </div>
             </div>
-            <div className="flex flex-col gap-2">
-              {items.length ? (
-                <span className="text-sm text-info relative -bottom-1">{` ${items.length} Items Selected (${totalPrice}tk)`}</span>
-              ) : null}
-              <label htmlFor="my-modal" className="btn">
-                {items.length ? `ReSelect!` : "Select Item"}
-              </label>
-            </div>
+
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Description</span>

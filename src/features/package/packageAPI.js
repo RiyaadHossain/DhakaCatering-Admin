@@ -7,7 +7,8 @@ const packageAPI = apiSlice.injectEndpoints({
             providesTags: ["Package"]
         }),
         getPackage: build.query({
-            query: (id) => `/package/${id}`
+            query: (id) => `/package/${id}`,
+            providesTags: ["PackageSingle"]
         }),
         postPackage: build.mutation({
             query: ({ packageData, token }) => ({
@@ -31,7 +32,7 @@ const packageAPI = apiSlice.injectEndpoints({
                 },
                 body: packageData
             }),
-            invalidatesTags: ["Package"]
+            invalidatesTags: ["Package", "PackageSingle"]
         }),
         deletePackage: build.mutation({
             query: ({ id, token }) => ({

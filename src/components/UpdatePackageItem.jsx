@@ -22,7 +22,7 @@ export default function UpdatePackageItem({
       items = [...items, value];
       setItems(items);
     } else {
-      items = items.filter((item) => item._id !== value.id);
+      items = items.filter((item) => item._id !== value._id);
       setItems(items);
     }
 
@@ -32,24 +32,30 @@ export default function UpdatePackageItem({
       setTotalPrice((totalPrice += item.price));
     });
   };
-console.log(items);
+
+  const itemIds = items.map((e) => e._id);
+  let otherItems = data.data.filter((item) => !(itemIds.includes(item._id)));
+
+  otherItems = otherItems.filter(item => item !== null)
+
   return (
     <div>
       <input type="checkbox" id="my-modal" className="modal-toggle" />
       <div className="modal">
-        <div className="modal-box  w-11/12 max-w-5xl">
+        <div className="modal-box  w-11/12 max-w-3xl">
           <label
             htmlFor="my-modal"
             className="btn btn-error btn-sm btn-circle absolute right-2 top-2"
           >
             ✕
           </label>
-          <h3 className="font-bold text-center text-xl mb-2">
+          <h3 className="font-bold text-center font-mono text-2xl mb-2">
             Select the Items for this package
           </h3>
           <div className="py-4">
+            <h3 className="text-lg font-semibold mt-5">Select More Items:</h3>
             <div className=" grid grid-cols-3 gap-x-2">
-              {data.data.map((item) => (
+              {otherItems.map((item) => (
                 <div
                   key={item._id}
                   className="flex items-center"
@@ -57,13 +63,31 @@ console.log(items);
                 >
                   <label className="cursor-pointer label gap-2">
                     <input
-                      value={JSON.stringify({
-                        id: item._id,
-                        price: item.price,
-                      })}
+                      value={JSON.stringify(item)}
                       type="checkbox"
-                      defaultChecked={items.map(e => e._id === item._id)}
                       className="checkbox checkbox-sm"
+                    />
+                    <span className="label-text">
+                      {item.name} ({item.price}৳)
+                    </span>
+                  </label>
+                </div>
+              ))}
+            </div>
+            <h3 className="text-lg font-semibold mt-8">Selected Items:</h3>
+            <div className=" grid grid-cols-3 gap-x-2">
+              {items.map((item) => (
+                <div
+                  key={item._id}
+                  className="flex items-center"
+                  onChange={(e) => handleCheck(e)}
+                >
+                  <label className="cursor-pointer label gap-2">
+                    <input
+                      value={JSON.stringify(item)}
+                      type="checkbox"
+                      className="checkbox checkbox-sm"
+                      defaultChecked
                     />
                     <span className="label-text">
                       {item.name} ({item.price}৳)

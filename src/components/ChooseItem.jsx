@@ -34,7 +34,7 @@ export default function ChooseItem({ items, setItems, totalPrice, setTotalPrice 
     <div>
       <input type="checkbox" id="my-modal" className="modal-toggle" />
       <div className="modal">
-        <div className="modal-box  w-11/12 max-w-5xl">
+        <div className="modal-box  w-11/12 max-w-3xl">
           <label
             htmlFor="my-modal"
             className="btn btn-error btn-sm btn-circle absolute right-2 top-2"

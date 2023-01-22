@@ -55,6 +55,7 @@ export default function UpdatePackage() {
   const handleUpdate = async (packageData) => {
     let data;
     setLoading(true);
+    items = items.map(item => item._id)
     const imageData = packageData?.imgURL[0];
 
     if (imageData) {
@@ -64,18 +65,20 @@ export default function UpdatePackage() {
       data = await (await axios.post(URL, formData)).data;
     }
 
-    if (data.success) {
+    if (!imageData) {
       packageData = {
         ...packageData,
-        image: { title: data.data.title, url: data.data.url },
+        allItems: {items, totalPrice},
+        image: { title: image.title, url: image.url },
       };
 
       UpdatePackage({ token, packageData, id });
       setLoading(false);
-    } else if (!imageData) {
+    } else if (data?.success) {
       packageData = {
         ...packageData,
-        image: { title: image.title, url: image.url },
+        allItems: {items, totalPrice},
+        image: { title: data.data.title, url: data.data.url },
       };
 
       UpdatePackage({ token, packageData, id });
@@ -89,14 +92,17 @@ export default function UpdatePackage() {
     }
 
     reset();
-    setItems([])
-    setTotalPrice(0)
+    setItems([]);
+    setTotalPrice(0);
   };
 
   const setValue = () => {
-    setItems(allItems.items)
-    setTotalPrice(allItems.totalPrice)
-  }
+    setItems(allItems.items);
+    setTotalPrice(allItems.totalPrice);
+  };
+
+  console.log(items)
+
   return (
     <div>
       <PageHeader title="Update Item" />
@@ -253,7 +259,7 @@ export default function UpdatePackage() {
                 type="submit"
                 className="btn btn-wide mx-auto btn-primary"
               >
-                Update Item
+                Update Package
               </button>
             </div>
           </form>
