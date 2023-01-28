@@ -8,7 +8,7 @@ export default function ChooseItem({ items, setItems, totalPrice, setTotalPrice 
   const { data, isFetching, isError } = useGetItemsQuery();
 
   if (isFetching) return <Loading />;
-  if (isError) navigate("/packages");
+  if (isError) navigate("/items");
 
   const handleCheck = (e) => {
     let { checked, value } = e.target;
@@ -23,7 +23,6 @@ export default function ChooseItem({ items, setItems, totalPrice, setTotalPrice 
     }
 
     totalPrice = 0
-    console.log(totalPrice);
     items.forEach((item) => {
       setTotalPrice(totalPrice += item.price);
     });
