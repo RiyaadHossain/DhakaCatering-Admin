@@ -2,6 +2,17 @@ import { apiSlice } from "../api/apiSlice";
 
 const orderRequestAPI = apiSlice.injectEndpoints({
     endpoints: (build) => ({
+        getOrderRequest: build.query({
+            query: ({id, token}) => ({
+                url: `/order-request/${id}`,
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+            }),
+            providesTags: ["OrderRequest"]
+        }),
         getOrderRequests: build.query({
             query: (token) => ({
                 url: "/order-request",
@@ -11,7 +22,7 @@ const orderRequestAPI = apiSlice.injectEndpoints({
                     'Authorization': `Bearer ${token}`
                 },
             }),
-            providesTags: ["OrderRequest"]
+            providesTags: ["OrderRequests"]
         }),
         updateOrderRequest: build.mutation({
             query: ({ id, status, token }) => ({
@@ -23,9 +34,9 @@ const orderRequestAPI = apiSlice.injectEndpoints({
                 },
                 body: status
             }),
-            invalidatesTags: ["OrderRequest",]
+            invalidatesTags: ["OrderRequests", "OrderRequest"]
         }),
     })
 })
 
-export const { useGetOrderRequestsQuery, useUpdateOrderRequestMutation } = orderRequestAPI
+export const { useGetOrderRequestsQuery, useUpdateOrderRequestMutation, useGetOrderRequestQuery } = orderRequestAPI

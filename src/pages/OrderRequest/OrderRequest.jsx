@@ -3,10 +3,7 @@ import { BsPlusCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
 import PageHeader from "../../components/PageHeader";
-import {
-  useGetOrderRequestsQuery,
-  useUpdateOrderRequestMutation,
-} from "../../features/orderRequest/orderRequestAPI";
+import { useGetOrderRequestsQuery } from "../../features/orderRequest/orderRequestAPI";
 import { getToken } from "../../utils/token";
 import OrderReqRow from "./OrderReqRow";
 
@@ -14,8 +11,6 @@ export default function OrderRequest() {
   const token = getToken();
   const navigate = useNavigate();
   const { data, isFetching } = useGetOrderRequestsQuery(token);
-  const [updateOReq, { isLoading, isError, isSuccess }] =
-    useUpdateOrderRequestMutation();
 
   if (isFetching) return <Loading />;
   const button = (
@@ -32,10 +27,7 @@ export default function OrderRequest() {
 
   return (
     <div>
-      <PageHeader
-        title="Order Request"
-        quantity={orderRequests?.length}
-      />
+      <PageHeader title="Order Request" quantity={orderRequests?.length} />
       {orderRequests?.length ? (
         <div className="overflow-x-auto w-full rounded-t-md ">
           <table className="table w-full border">

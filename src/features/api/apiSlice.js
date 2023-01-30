@@ -7,5 +7,5 @@ export const apiSlice = createApi({
     endpoints: (builder) => ({
 
     }),
-    tagTypes: ["Item", "ItemDetails", "Package", "PackageSingle", "User", "OrderRequest"]
+    tagTypes: ["Item", "ItemDetails", "Package", "PackageSingle", "User", "OrderRequest", "OrderRequests"]
 })

@@ -55,7 +55,7 @@ export default function ItemDetails() {
 
   if (isFetching || isLoading) return <Loading />;
 
-  const { name, price, description, status, imgURL, sellCount } = data.data;
+  const { name, price, description, status, image, sellCount } = data.data;
 
   const deleteItem = () => {
     Swal.fire({
@@ -69,10 +69,9 @@ export default function ItemDetails() {
       buttonsStyling: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteButton({ id, token })
-        navigate("/items")
-      };
-      
+        deleteButton({ id, token });
+        navigate("/items");
+      }
     });
   };
 
@@ -87,7 +86,7 @@ export default function ItemDetails() {
         <div className="mt-8">
           <div className="border-4 border-slate-500 rounded-md ">
             <img
-              src={imgURL}
+              src={image.url}
               className="w-full h-96 object-cover rounded-sm"
               alt=""
             />
