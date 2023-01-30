@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { FaHamburger, FaUserCircle } from "react-icons/fa";
 import { HiUsers, HiHome } from "react-icons/hi";
+import { IoChatbubblesSharp } from "react-icons/io5";
 import {
   MdFastfood,
   MdLocalOffer,
@@ -38,6 +39,15 @@ export default function Sidebar() {
               <HiHome className="sidebar-icon" />
               Home
             </div>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/order-request">
+            <div>
+              <IoChatbubblesSharp className="sidebar-icon" />
+              Order Request
+            </div>
+            <span className="sidebar-num">15</span>
           </NavLink>
         </li>
         <li>

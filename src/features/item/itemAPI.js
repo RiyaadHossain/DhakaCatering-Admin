@@ -7,7 +7,8 @@ const itemAPI = apiSlice.injectEndpoints({
             providesTags: ["Item"]
         }),
         getItem: build.query({
-            query: (id) => `/item/${id}`
+            query: (id) => `/item/${id}`,
+            providesTags: ["ItemDetails"]
         }),
         postItem: build.mutation({
             query: ({ itemData, token }) => ({
@@ -31,7 +32,7 @@ const itemAPI = apiSlice.injectEndpoints({
                 },
                 body: itemData
             }),
-            invalidatesTags: ["Item"]
+            invalidatesTags: ["Item", "ItemDetails"]
         }),
         deleteItem: build.mutation({
             query: ({ id, token }) => ({
@@ -42,7 +43,7 @@ const itemAPI = apiSlice.injectEndpoints({
                     'Authorization': `Bearer ${token}`
                 }
             }),
-            invalidatesTags: ["Item"]
+            invalidatesTags: ["Item", "ItemDetails"]
         })
     })
 })

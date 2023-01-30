@@ -1,11 +1,11 @@
 
-export const storeToken = (userInfo) => {
-    const data = JSON.stringify(userInfo)
-    window.localStorage.setItem("userInfo", data)
+export const storeToken = (adminInfo) => {
+    const data = JSON.stringify(adminInfo)
+    window.localStorage.setItem("adminInfo", data)
 }
 
 export const getToken = () => {
-    let data = window.localStorage.getItem("userInfo")
+    let data = window.localStorage.getItem("adminInfo")
     const token = JSON.parse(data)?.token
     return token
 }

@@ -54,7 +54,6 @@ export default function ItemTableRow({ item, i }) {
     }
     if (isErrorUpdate) toast.error(errorUpdate.data.error, { id: "err" });
     if (isSuccessUpdate) {
-      console.log('hello');
       toast.success("Item status Updated successfully", { id: "succ" });
     }
     // if (isLoadingUpdate && !isSuccessUpdate && !isErrorUpdate)

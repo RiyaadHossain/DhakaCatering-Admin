@@ -22,6 +22,7 @@ import Offers from "../pages/Offer/AllOffers/Offers";
 import OfferDetails from "../pages/Offer/OfferDetails/OfferDetails";
 import AddOffer from "../pages/Offer/AllOffers/AddOffer";
 import UpdateOffer from "../pages/Offer/AllOffers/UpdateOffer";
+import OrderRequest from "../pages/OrderRequest/OrderRequest";
 
 
 export const routes = createBrowserRouter([
@@ -32,6 +33,10 @@ export const routes = createBrowserRouter([
             {
                 path: "/",
                 element: <Home />
+            },
+            {
+                path: "order-request",
+                element: <OrderRequest />
             },
             {
                 path: "items",

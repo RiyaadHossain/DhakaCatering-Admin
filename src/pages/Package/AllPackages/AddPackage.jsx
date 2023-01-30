@@ -27,7 +27,7 @@ export default function AddPackage() {
 
   const [
     createPackage,
-    { isLoading, isError, isSuccess, error /* data: postData */ },
+    { isLoading, isError, isSuccess, error },
   ] = usePostPackageMutation();
 
   const submitForm = async (packageData) => {
