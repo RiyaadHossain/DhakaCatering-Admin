@@ -1,27 +1,25 @@
 import React from "react";
 import { BsPlusCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../components/Loading";
 import PageHeader from "../../components/PageHeader";
-import TableRow from "../../components/TableRow";
+import { useGetUsersQuery } from "../../features/user/userAPI";
+import { getToken } from "../../utils/token";
+import UserTableRow from "../Users/UserTableRow";
 
 export default function Admins() {
+  const token = getToken();
   const navigate = useNavigate();
-  const data = { data: [] };
+  const { data, isFetching } = useGetUsersQuery(token);
 
-  const button = (
-    <button
-      onClick={() => navigate("/add-item")}
-      className="btn btn-success btn-sm"
-    >
-      <BsPlusCircleFill className="mr-1" />
-      Add New
-    </button>
-  );
+  if (isFetching) return <Loading />;
+
+  const admins = data.users.filter((user) => user.role === "Admin");
 
   return (
     <div>
-      <PageHeader title="Admins" quantity="4" />
-      {data?.data?.length ? (
+      <PageHeader title="Admins" quantity={admins.length.toString()} />
+      {admins?.length ? (
         <div className="overflow-x-auto w-full rounded-t-xl ">
           <table className="table w-full border">
             {/* <!-- head --> */}
@@ -36,18 +34,22 @@ export default function Admins() {
               </tr>
             </thead>
             <tbody>
-              {/* <!-- row 1 --> */}
-              <TableRow />
-              <TableRow />
-              <TableRow />
-              <TableRow />
+              {admins.map((user, i) => (
+                <UserTableRow i={i} user={user} page={true} />
+              ))}
             </tbody>
           </table>
         </div>
       ) : (
         <div className=" h-[50vh] flex set-center flex-col gap-5">
           <h3 className="text-2xl">No more Item is added yet</h3>
-          {button}
+          <button
+            onClick={() => navigate("/add-item")}
+            className="btn btn-success btn-sm"
+          >
+            <BsPlusCircleFill className="mr-1" />
+            Add New
+          </button>
         </div>
       )}
     </div>
