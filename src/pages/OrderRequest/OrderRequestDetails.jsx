@@ -1,6 +1,7 @@
+import { all } from "axios";
 import React from "react";
 import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../../components/Loading";
 import PageHeader from "../../components/PageHeader";
 import PreviousBtn from "../../components/PreviousBtn";
@@ -9,12 +10,13 @@ import {
   useUpdateOrderRequestMutation,
 } from "../../features/orderRequest/orderRequestAPI";
 import { getToken } from "../../utils/token";
-import Navigation from "../Item/ItemDetails/Navigation";
+import ItemTable from "./ItemTable";
 
 export default function OrderRequestDetails() {
   let bbg;
   const token = getToken();
   const { id } = useParams();
+  const navigate = useNavigate();
   const { data, isFetching } = useGetOrderRequestQuery({ id, token });
   const [updateOReq, { isLoading, isError, isSuccess }] =
     useUpdateOrderRequestMutation();
@@ -35,58 +37,65 @@ export default function OrderRequestDetails() {
 
   return (
     <>
-      <div className="max-w-[820px]">
-        <PageHeader title="Item Details" />
-        <div className="mt-8">
-          <div className="border-4 border-slate-500 rounded-md ">
-            {/* <img
-              src={image.url}
-              className="w-full h-96 object-cover rounded-sm"
-              alt=""
-            /> */}
+      <div className="max-w-[820px] mb-10">
+        <PageHeader title="Order Request" />
+        <div className="text-end">
+          <span className={`badge ${bbg} text-black mb-4`}>{status}</span>
+        </div>
+        <div className="overflow-x-auto w-full rounded-t-lg">
+          <table className="table w-full border">
+            {/* <!-- head --> */}
+            <thead>
+              <tr>
+                <th>
+                  <label>
+                    <input type="checkbox" className="checkbox" />
+                  </label>
+                </th>
+                <th>Name</th>
+                <th>QTY</th>
+                <th>Price</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {allItems.map((item) => (
+                <ItemTable item={item} />
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="mt-6 flex flex-wrap flex-col gap-3">
+          <div className="flex items-center justify-between">
+            <h3 className="font-bold text-2xl">{name} </h3>
+            <p>
+              <span className="font-semibold">Price:</span> {totalPrice} ৳
+            </p>
           </div>
-          <div className="mt-6 flex flex-col gap-3">
-            <div className="flex items-center justify-between">
-              <h3 className="font-bold text-2xl">{name}</h3>
-              <span className={`badge ${bbg} text-black`}>{status}</span>
+          <div className="flex flex-wrap mt-2 gap-2 items-end justify-between">
+            <div className="flex gap-5 items-center">
+              <button className="btn btn-sm btn-success">Approve</button>
+              <button className="btn btn-sm btn-error">Reject</button>
             </div>
-            <div className="flex justify-between items-center">
+            <div
+              onClick={() => navigate(`/user/${createdBy.id._id}`)}
+              className="flex cursor-pointer bg-slate-700 rounded-md px-4 p-2 items-center gap-5"
+            >
+              <div className="avatar">
+                <div className="w-20 rounded-full">
+                  <img src={createdBy.id.imageUrl} alt="" />
+                </div>
+              </div>
               <div>
-                <p className="mt-1">
-                  <span className="font-semibold">Price:</span> {totalPrice} ৳
-                </p>
-              </div>
-              <div className="flex items-center gap-2">
-                {/* <button
-                  onClick={() => navigate(`/update-package/${id}`)}
-                  className="btn btn-info btn-sm"
-                >
-                  Edit
-                </button>
-                <button onClick={deleteItem} className="btn btn-error btn-sm">
-                  Delete
-                </button> */}
-                {status === "active" ? (
-                  <button
-                    onClick={() => updateOReq("Approve")}
-                    className="btn btn-warning btn-sm"
-                  >
-                    <BsXCircleFill className="text-lg text-gray-700" />
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => updateOReq("Reject")}
-                    className="btn btn-warning btn-sm"
-                  >
-                    <BsCheckCircleFill className="text-lg text-gray-700" />
-                  </button>
-                )}
+                <p className="font-semibold ">{createdBy.id.fullName}</p>
+                <span className="badge badge-sm badge-secondary">
+                  {createdBy.id.occupation}
+                </span>
               </div>
             </div>
-            {/* <p className="text-gray-500 font-light">{description}</p> */}
           </div>
         </div>
-        <Navigation />
       </div>
       <PreviousBtn />
     </>
