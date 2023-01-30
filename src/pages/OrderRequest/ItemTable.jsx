@@ -1,12 +1,10 @@
 import React from "react";
 
-export default function ItemTable({ item: { id, qty, totalPrice } }) {
+export default function ItemTable({ item: { id, qty, totalPrice }, i }) {
   return (
     <tr>
-      <th>
-        <label>
-          <input type="checkbox" className="checkbox" />
-        </label>
+      <th className="text-center">
+        {i+1}
       </th>
       <td>
         <div className="flex items-center space-x-3">
@@ -17,7 +15,7 @@ export default function ItemTable({ item: { id, qty, totalPrice } }) {
           </div>
           <div>
             <div className="font-bold">
-              {id.name} <span className="text-sm font-light">({id.price})</span>
+              {id.name} <span className="text-sm font-light">({id.price}৳)</span>
             </div>
             <div className="badge badge-info badge-sm">{id.category}</div>
           </div>

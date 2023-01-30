@@ -3,7 +3,7 @@ import { apiSlice } from "../api/apiSlice";
 const orderRequestAPI = apiSlice.injectEndpoints({
     endpoints: (build) => ({
         getOrderRequest: build.query({
-            query: ({id, token}) => ({
+            query: ({ id, token }) => ({
                 url: `/order-request/${id}`,
                 method: "GET",
                 headers: {
@@ -32,7 +32,7 @@ const orderRequestAPI = apiSlice.injectEndpoints({
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
-                body: status
+                body: { status }
             }),
             invalidatesTags: ["OrderRequests", "OrderRequest"]
         }),

@@ -25,7 +25,7 @@ export default function OrderReqRow({ item, i }) {
       <td>{item.allItems.length}</td>
       <td>{item.totalPrice}</td>
       <th>
-        <span className={`badge badge-sm ${bbg} text-black`}>
+        <span className={`badge badge-sm ${bbg} text-black font-medium`}>
           {item.status}
         </span>
       </th>
