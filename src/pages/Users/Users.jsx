@@ -1,28 +1,25 @@
 import React from "react";
 import { BsPlusCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../components/Loading";
 import PageHeader from "../../components/PageHeader";
-import TableRow from "../../components/TableRow";
+import { useGetUsersQuery } from "../../features/user/userAPI";
+import { getToken } from "../../utils/token";
+import UserTableRow from "./UserTableRow";
 
 export default function Users() {
+  const token = getToken();
   const navigate = useNavigate();
-  const data = {data: []}
+  const { data, isFetching } = useGetUsersQuery(token);
 
-  // if (isFetching) return <Loading />;
+  if (isFetching) return <Loading />;
 
-  const button = (
-    <button
-      onClick={() => navigate("/add-item")}
-      className="btn btn-success btn-sm"
-    >
-      <BsPlusCircleFill className="mr-1" />
-      Do some marketing
-    </button>
-  );
+  const users = data.users.filter((user) => user.role === "User");
+
   return (
     <div>
-      <PageHeader title="Admins" quantity="4" />
-      {data?.data?.length ? (
+      <PageHeader title="Users" quantity={users.length.toString()} />
+      {users.length ? (
         <div className="overflow-x-auto w-full rounded-t-xl ">
           <table className="table w-full border">
             {/* <!-- head --> */}
@@ -30,25 +27,30 @@ export default function Users() {
               <tr>
                 <th></th>
                 <th>Name</th>
-                <th>Items</th>
-                <th>Price</th>
+                <th>Phone</th>
+                <th>email</th>
                 <th>Status</th>
-                <th></th>
               </tr>
             </thead>
             <tbody>
-              {/* <!-- row 1 --> */}
-              <TableRow />
-              <TableRow />
-              <TableRow />
-              <TableRow />
+              {users.map((user, i) => (
+                <UserTableRow i={i} user={user} page={true} />
+              ))}
             </tbody>
           </table>
         </div>
       ) : (
         <div className=" h-[50vh] flex set-center flex-col gap-5">
-          <h3 className="text-2xl">Not a single user started using our application</h3>
-          {button}
+          <h3 className="text-2xl">
+            Not a single user started using our application
+          </h3>
+          <button
+            onClick={() => navigate("/add-item")}
+            className="btn btn-success btn-sm"
+          >
+            <BsPlusCircleFill className="mr-1" />
+            Do some marketing
+          </button>
         </div>
       )}
     </div>
