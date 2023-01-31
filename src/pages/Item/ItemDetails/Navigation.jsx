@@ -1,9 +1,14 @@
 import React, { useState } from "react";
+import Loading from "../../../components/Loading";
+import { useGetReviewsQuery } from "../../../features/review/reviewAPI";
 import Details from "./Details";
 import Reviews from "./Reviews";
 
-export default function Navigation() {
+export default function Navigation({ foodId }) {
   const [act, setAct] = useState("details");
+  const { data, isFetching } = useGetReviewsQuery(foodId);
+
+  if (isFetching) return <Loading />;
 
   return (
     <>
@@ -18,11 +23,15 @@ export default function Navigation() {
           onClick={() => setAct("reviews")}
           className={`bg-slate-300 ${act.includes("reviews") && "active"}`}
         >
-          Reviews (5)
+          Reviews ({data.reviews.length})
         </button>
       </div>
       <div className="mt-8">
-        {act.includes("details") ? <Details /> : <Reviews />}
+        {act.includes("details") ? (
+          <Details />
+        ) : (
+          <Reviews reviews={data.reviews} />
+        )}
       </div>
     </>
   );

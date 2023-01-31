@@ -136,7 +136,7 @@ export default function ItemDetails() {
             <p className="text-gray-500 font-light">{description}</p>
           </div>
         </div>
-        <Navigation />
+        <Navigation foodId={id} />
       </div>
       <PreviousBtn />
     </>
