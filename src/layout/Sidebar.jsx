@@ -13,6 +13,7 @@ import { BiLogOutCircle } from "react-icons/bi";
 import { RiAdminFill } from "react-icons/ri";
 import { IoFastFoodSharp } from "react-icons/io5";
 import { toast } from "react-hot-toast";
+import { BsHandbagFill } from "react-icons/bs";
 
 export default function Sidebar() {
   const navigate = useNavigate();
@@ -66,6 +67,15 @@ export default function Sidebar() {
               Package
             </div>
             <span className="sidebar-num">3</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/orders">
+            <div>
+              <BsHandbagFill className="sidebar-icon" />
+              Orders
+            </div>
+            <span className="sidebar-num">6</span>
           </NavLink>
         </li>
         <li>

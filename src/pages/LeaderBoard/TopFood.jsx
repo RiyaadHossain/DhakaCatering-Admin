@@ -1,7 +1,7 @@
 import React from "react";
-import FoodTableRow from "../../components/FoodTableRow";
+import PackageRow from "./PackageRow";
 
-export default function TopFood() {
+export default function TopFood({ packages }) {
   return (
     <div>
       <div className="overflow-x-auto w-full border rounded-t-xl">
@@ -10,16 +10,16 @@ export default function TopFood() {
             <tr>
               <th></th>
               <th>Name</th>
-              <th>Item</th>
-              <th>Price</th>
-              <th>Status</th>
+              <th>Total Sold</th>
+              <th>Views</th>
+              <th>Earning</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            <FoodTableRow />
-            <FoodTableRow />
-            <FoodTableRow />
+            {packages.map((item, i) => (
+              <PackageRow item={item} i={i} key={i} />
+            ))}
           </tbody>
         </table>
       </div>

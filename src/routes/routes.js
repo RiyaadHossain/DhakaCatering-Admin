@@ -24,6 +24,7 @@ import AddOffer from "../pages/Offer/AllOffers/AddOffer";
 import UpdateOffer from "../pages/Offer/AllOffers/UpdateOffer";
 import OrderRequest from "../pages/OrderRequest/OrderRequest";
 import OrderRequestDetails from "../pages/OrderRequest/OrderRequestDetails";
+import Orders from "../pages/Orders/Orders";
 
 
 export const routes = createBrowserRouter([
@@ -74,6 +75,10 @@ export const routes = createBrowserRouter([
             {
                 path: "update-package/:id",
                 element: <UpdatePackage />
+            },
+            {
+                path: "orders",
+                element: <Orders />
             },
             {
                 path: "offers",

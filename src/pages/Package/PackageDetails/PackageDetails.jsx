@@ -83,7 +83,7 @@ export default function ItemDetails() {
   return (
     <>
       <div className="max-w-[820px]">
-        <PageHeader title="Item Details" quantity={sellCount.toString()} />
+        <PageHeader title="Package Details" quantity={sellCount.toString()} />
         <div className="mt-8">
           <div className="border-4 border-slate-500 rounded-md ">
             <img

@@ -1,9 +1,18 @@
 import React, { useState } from "react";
+import Loading from "../../components/Loading";
+import { useLeaderboradDataQuery } from "../../features/package/packageAPI";
+import { getToken } from "../../utils/token";
 import TopFood from "./TopFood";
 import TopUser from "./TopUser";
 
 export default function Navigator() {
   const [act, setAct] = useState("user");
+
+  const token = getToken();
+  const { data, isFetching } = useLeaderboradDataQuery(token);
+  if (isFetching) return <Loading />;
+
+  const { packages, users } = data?.data;
 
   return (
     <>
@@ -22,7 +31,11 @@ export default function Navigator() {
         </button>
       </div>
       <div className="mt-8">
-        {act.includes("user") ? <TopUser /> : <TopFood />}
+        {act.includes("user") ? (
+          <TopUser users={users} />
+        ) : (
+          <TopFood packages={packages} />
+        )}
       </div>
     </>
   );

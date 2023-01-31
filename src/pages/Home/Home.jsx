@@ -11,7 +11,7 @@ import { statData } from "../../data/statData";
 
 export default function Home() {
   const thanks = () => {
-    toast.success("Never lose hope. Allah is almighy", { id: "Allah" });
+    toast.success("Never lose hope. Allah is always with us.", { id: "Allah", style: {maxWidth: "400px"} });
   };
 
   const navigate = useNavigate()

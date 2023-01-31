@@ -11,7 +11,7 @@ export default function OrderReqRow({ item, i }) {
   if (item.status === "Rejected") {
     bbg = "bg-error";
   }
-  if (item.status === "Approve") {
+  if (item.status === "Approved") {
     bbg = "bg-success";
   }
 

@@ -1,7 +1,7 @@
 import React from "react";
 import UserTableRow from "../../components/UserTableRow";
 
-export default function TopUser() {
+export default function TopUser({ users }) {
   return (
     <div>
       <div className="overflow-x-auto w-full border rounded-t-xl ">
@@ -10,15 +10,16 @@ export default function TopUser() {
             <tr>
               <th></th>
               <th>Name</th>
-              <th>Buy</th>
+              <th>Total Buy</th>
+              <th>Total Order</th>
               <th>Phone</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            <UserTableRow />
-            <UserTableRow />
-            <UserTableRow />
+            {users.map((user, i) => (
+              <UserTableRow user={user} i={i} key={i} />
+            ))}
           </tbody>
         </table>
       </div>

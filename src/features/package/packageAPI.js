@@ -2,6 +2,16 @@ import { apiSlice } from "../api/apiSlice";
 
 const packageAPI = apiSlice.injectEndpoints({
     endpoints: (build) => ({
+        leaderboradData: build.query({
+            query: (token) => ({
+                url: '/admin-data/leaderboard',
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+            }),
+        }),
         getPackages: build.query({
             query: () => "/package",
             providesTags: ["Package"]
@@ -48,4 +58,4 @@ const packageAPI = apiSlice.injectEndpoints({
     })
 })
 
-export const { useGetPackagesQuery, useGetPackageQuery, usePostPackageMutation, useUpdatePackageMutation, useDeletePackageMutation } = packageAPI
+export const { useGetPackagesQuery, useGetPackageQuery, usePostPackageMutation, useUpdatePackageMutation, useDeletePackageMutation, useLeaderboradDataQuery } = packageAPI
