@@ -49,7 +49,7 @@ export default function UpdatePackage() {
 
   if (loading || isLoading || itemLoading) return <Loading />;
 
-  const { name, price, description, image, category, status, allItems } =
+  let { name, price, description, image, category, status, allItems } =
     data?.data;
 
   const handleUpdate = async (packageData) => {

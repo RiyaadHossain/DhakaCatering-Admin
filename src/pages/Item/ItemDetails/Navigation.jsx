@@ -4,7 +4,7 @@ import { useGetReviewsQuery } from "../../../features/review/reviewAPI";
 import Details from "./Details";
 import Reviews from "./Reviews";
 
-export default function Navigation({ foodId }) {
+export default function Navigation({ foodId, description }) {
   const [act, setAct] = useState("details");
   const { data, isFetching } = useGetReviewsQuery(foodId);
 
@@ -28,7 +28,7 @@ export default function Navigation({ foodId }) {
       </div>
       <div className="mt-8">
         {act.includes("details") ? (
-          <Details />
+          <Details  description={description} />
         ) : (
           <Reviews reviews={data.reviews} />
         )}

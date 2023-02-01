@@ -55,8 +55,8 @@ export default function ItemDetails() {
 
   if (isFetching || isLoading) return <Loading />;
 
-  const { name, price, description, status, image, sellCount } = data.data;
-  console.log({ name, price, description, status, image, sellCount });
+  const { name, price, description, status, image, sellCount, allItems } =
+    data.data;
 
   const deleteItem = () => {
     Swal.fire({
@@ -101,13 +101,24 @@ export default function ItemDetails() {
                 <span className="badge badge-error">Inactive</span>
               )}
             </div>
+
+            <div>
+              {allItems.map((item) => (
+                <div className="flex items-center justify-between max-w-xs mb-1">
+                  <div>{item.id.name} ({item.qty})</div>
+                  <div>
+                     {item.totalPrice} ৳
+                  </div>
+                </div>
+              ))}
+            </div>
             <div className="flex justify-between items-center">
               <div>
                 <p className="mt-1">
-                  <span className="font-semibold">Price:</span> {price} ৳
+                  <span className="font-bold"> Total Price:</span> {price} ৳
                 </p>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap justify-center items-center gap-2">
                 <button
                   onClick={() => navigate(`/update-package/${id}`)}
                   className="btn btn-info btn-sm"
@@ -134,10 +145,9 @@ export default function ItemDetails() {
                 )}
               </div>
             </div>
-            <p className="text-gray-500 font-light">{description}</p>
           </div>
         </div>
-        <Navigation foodId={id} />
+        <Navigation description={description} foodId={id} />
       </div>
       <PreviousBtn />
     </>
