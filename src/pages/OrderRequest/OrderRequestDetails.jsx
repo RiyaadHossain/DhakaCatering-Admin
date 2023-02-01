@@ -37,7 +37,7 @@ export default function OrderRequestDetails() {
           icon: "🔥",
         },
       });
-    
+
     if (isError)
       toast.error("Internal Server Error", {
         id: "err",
@@ -119,18 +119,24 @@ export default function OrderRequestDetails() {
                 <span className="font-semibold">Price:</span> {totalPrice}৳
               </p>
               <div className="flex gap-5 items-center">
-                <button
-                  onClick={() => handleUpdate("Approved")}
-                  className="btn btn-sm btn-success"
-                >
-                  Approve
-                </button>
-                <button
-                  onClick={() => handleUpdate("Rejected")}
-                  className="btn btn-sm btn-error"
-                >
-                  Reject
-                </button>
+                {status === "Pending" ? (
+                  <>
+                    <button
+                      onClick={() => handleUpdate("Approved")}
+                      className="btn btn-sm btn-success"
+                    >
+                      Approve
+                    </button>
+                    <button
+                      onClick={() => handleUpdate("Rejected")}
+                      className="btn btn-sm btn-error"
+                    >
+                      Reject
+                    </button>
+                  </>
+                ) : (
+                  <button className="btn btn-disabled border-slate-700">Aready {status}</button>
+                )}
               </div>
             </div>
           </div>

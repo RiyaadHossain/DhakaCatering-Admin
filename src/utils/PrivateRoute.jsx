@@ -10,16 +10,15 @@ const PrivateRoute = ({ children }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   if (!token) navigate("/signin");
-  const { isFetching, isError, data } = useUserPersistencyQuery(token);
+  const { isFetching, data } = useUserPersistencyQuery(token);
   const email = data?.data?.email;
+  const role = data?.data?.role;
 
   if (isFetching) {
     return <Loading />;
   }
 
-  if (isError) navigate('/signin');
-
-  if (!email) {
+  if (!email && !role.inclueds("Admin")) {
     return <Navigate to="/signin" state={{ path: pathname }} />;
   }
 
