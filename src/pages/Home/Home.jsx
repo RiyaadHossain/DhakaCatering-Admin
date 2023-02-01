@@ -13,14 +13,16 @@ import { getToken } from "../../utils/token";
 import { IoFastFoodSharp } from "react-icons/io5";
 import { FaHamburger } from "react-icons/fa";
 import { HiCurrencyBangladeshi, HiUsers } from "react-icons/hi";
+import { useUserPersistencyQuery } from "../../features/auth/authAPI";
 
 export default function Home() {
   const token = getToken();
   const navigate = useNavigate();
   const { data, isFetching } = useLeaderboradDataQuery(token);
+  const {data: user, isFetching: userFetching} = useUserPersistencyQuery(token)
   const { data: statDataF, isFetching: statFetching } =
     useGetStatDataQuery(token);
-  if (isFetching || statFetching) return <Loading />;
+  if (isFetching || statFetching || userFetching) return <Loading />;
 
   const { packages, users } = data?.data;
   const { userStat, packageStat, itemStat, saleStat } = statDataF.data;
@@ -34,7 +36,7 @@ export default function Home() {
 
   return (
     <div>
-      <Navbar />
+      <Navbar user={user.data} />
 
       <div className="flex flex-wrap items-center justify-center gap-4 mt-8 md:mt-24">
         <div className="card w-60 text-slate-700">

@@ -3,8 +3,7 @@ import { IoFastFoodSharp } from "react-icons/io5";
 import NotificationIn from "./NotificationIn";
 import ProfileIn from "./ProfileIn";
 
-export default function Navbar() {
-
+export default function Navbar({ user }) {
   return (
     <div className="navbar bg-base-200 rounded-full">
       <div className="flex-1">
@@ -17,8 +16,8 @@ export default function Navbar() {
         </a>
       </div>
       <div className="flex-none">
-        <NotificationIn/>
-        <ProfileIn/>
+        <NotificationIn />
+        <ProfileIn user={user} />
       </div>
     </div>
   );

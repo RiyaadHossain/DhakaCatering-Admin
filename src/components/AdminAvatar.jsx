@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function AdminAvatar() {
+export default function AdminAvatar({user}) {
   
   const navigate = useNavigate();
 
@@ -10,12 +10,12 @@ export default function AdminAvatar() {
       <div className="set-center flex-col gap-4">
         <div className="avatar">
           <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-            <img src="https://placeimg.com/192/192/people" alt="" />
+            <img src={user.imageUrl} alt="" />
           </div>
         </div>
         <div className="set-center flex-col gap-2">
-          <h4 className="text-2xl font-bold">Kazi Z Hossain</h4>
-          <span className="badge">Super Admin</span>
+          <h4 className="text-2xl font-bold">{user.fullName}</h4>
+          <span className="badge">{user.role}</span>
           <button
             onClick={() => navigate("/profile")}
             className="btn btn-primary btn-block mt-2"
