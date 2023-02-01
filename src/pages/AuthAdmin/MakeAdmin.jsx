@@ -38,6 +38,15 @@ export default function MakeAdmin() {
           </div>
           <div className="form-control">
             <label className="label">
+              <span className="label-text">Image</span>
+            </label>
+            <input
+              type="file"
+              className="file-input w-full"
+            />
+          </div>
+          <div className="form-control">
+            <label className="label">
               <span className="label-text">Role</span>
             </label>
             <select className="select select-bordered w-full">

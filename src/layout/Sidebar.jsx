@@ -14,8 +14,12 @@ import { RiAdminFill } from "react-icons/ri";
 import { IoFastFoodSharp } from "react-icons/io5";
 import { toast } from "react-hot-toast";
 import { BsHandbagFill } from "react-icons/bs";
+import { useGetSidebarDataQuery } from "../features/statData/statDataAPI";
+import { getToken } from "../utils/token";
+import Loading from "../components/Loading";
 
 export default function Sidebar() {
+  const token = getToken();
   const navigate = useNavigate();
 
   const signOut = () => {
@@ -24,12 +28,16 @@ export default function Sidebar() {
     navigate("/");
   };
 
+  const { data, isFetching } = useGetSidebarDataQuery(token);
+  if (isFetching) return <Loading />;
+
+  const { users, packages, orders, orderRequests, items, admins } = data.data;
+
   return (
     <div className="drawer-side">
       <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
       <ul className="menu gap-1 font-medium p-4 w-72 bg-base-200 text-base-content relative">
         {/* <!-- Sidebar content here --> */}
-        {/* <h4 className="text-2xl font-bold text-center mt-4 mb-6">Dhaka Catering</h4> */}
         <div className="text-2xl mt-4 mb-6 font-bold text-center flex items-center gap-3 justify-center">
           <IoFastFoodSharp />
           Dhaka Catering
@@ -48,7 +56,7 @@ export default function Sidebar() {
               <IoChatbubblesSharp className="sidebar-icon" />
               Order Request
             </div>
-            <span className="sidebar-num">15</span>
+            <span className="sidebar-num">{orderRequests}</span>
           </NavLink>
         </li>
         <li>
@@ -57,7 +65,7 @@ export default function Sidebar() {
               <FaHamburger className="sidebar-icon" />
               Items
             </div>
-            <span className="sidebar-num">15</span>
+            <span className="sidebar-num">{items}</span>
           </NavLink>
         </li>
         <li>
@@ -66,7 +74,7 @@ export default function Sidebar() {
               <MdFastfood className="sidebar-icon" />
               Package
             </div>
-            <span className="sidebar-num">3</span>
+            <span className="sidebar-num">{packages}</span>
           </NavLink>
         </li>
         <li>
@@ -75,7 +83,7 @@ export default function Sidebar() {
               <BsHandbagFill className="sidebar-icon" />
               Orders
             </div>
-            <span className="sidebar-num">6</span>
+            <span className="sidebar-num">{orders}</span>
           </NavLink>
         </li>
         <li>
@@ -84,7 +92,7 @@ export default function Sidebar() {
               <MdLocalOffer className="sidebar-icon" />
               Offers
             </div>
-            <span className="sidebar-num">6</span>
+            <span className="sidebar-num">0</span>
           </NavLink>
         </li>
         <li>
@@ -93,7 +101,7 @@ export default function Sidebar() {
               <HiUsers className="sidebar-icon" />
               Users
             </div>
-            <span className="sidebar-num">99</span>
+            <span className="sidebar-num">{users}</span>
           </NavLink>
         </li>
         <li>
@@ -102,7 +110,7 @@ export default function Sidebar() {
               <MdAdminPanelSettings className="sidebar-icon" />
               Admins
             </div>
-            <span className="sidebar-num">4</span>
+            <span className="sidebar-num">{admins}</span>
           </NavLink>
         </li>
         <li>

@@ -24,7 +24,11 @@ export default function Items() {
 
   return (
     <div>
-      <PageHeader title="Items" quantity={data?.data?.length} button={data?.data?.length && button} />
+      <PageHeader
+        title="Items"
+        quantity={data?.data?.length}
+        button={data?.data?.length && button}
+      />
       {data?.data?.length ? (
         <div className="overflow-x-auto w-full rounded-t-xl ">
           <table className="table w-full border">
