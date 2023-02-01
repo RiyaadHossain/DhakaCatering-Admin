@@ -35,7 +35,7 @@ export default function UpdateItem() {
     if (isSuccess) {
       MySwal.fire({
         title: <strong>Great!</strong>,
-        html: <span>Updated item Successfully.</span>,
+        html: <span>Item Updated Successfully.</span>,
         icon: "success",
       });
       navigate("/items");
@@ -46,31 +46,25 @@ export default function UpdateItem() {
 
   if (loading || isLoading || itemLoading) return <Loading />;
 
-  const { name, price, description, image, category, status } = data?.data;
+  let { name, price, description, image, category, status } = data?.data;
 
   const handleUpdate = async (itemData) => {
     setLoading(true);
     const imageData = itemData?.imgURL[0];
-    const formData = new FormData();
-    formData.append("image", imageData);
-    const URL = `https://api.imgbb.com/1/upload?key=${imgStorage_key}`;
-    const { data } = await axios.post(URL, formData);
 
-    if (data.success) {
-      itemData = {
-        ...itemData,
-        image: { title: data.data.title, url: data.data.url },
-      };
-
-      updateItem({ token, itemData, id });
-      setLoading(false);
-    } else {
-      MySwal.fire({
-        title: <strong>Oops!</strong>,
-        html: <span>Cloundn't upload the image.</span>,
-        icon: "error",
-      });
+    if (imageData) {
+      const formData = new FormData();
+      formData.append("image", imageData);
+      const URL = `https://api.imgbb.com/1/upload?key=${imgStorage_key}`;
+      const { data } = await axios.post(URL, formData);
+      if (data.success) {
+        image = { title: data.data.title, url: data.data.url };
+      }
     }
+
+    itemData = { ...itemData, image };
+    updateItem({ token, itemData, id });
+    setLoading(false);
 
     reset();
   };
@@ -123,15 +117,9 @@ export default function UpdateItem() {
               </label>
               <input
                 type="file"
-                {...register("imgURL", { required: true })}
+                {...register("imgURL")}
                 className="file-input w-full"
               />
-
-              {errors.imgURL && (
-                <span className="text-error text-xs text-left mt-1">
-                  Image is required
-                </span>
-              )}
             </div>
             <div className="form-control">
               <label className="label">

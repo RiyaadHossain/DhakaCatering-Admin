@@ -97,11 +97,9 @@ export default function UpdatePackage() {
   };
 
   const setValue = () => {
-    setItems(allItems.items);
-    setTotalPrice(allItems.totalPrice);
+    setItems(allItems);
+    setTotalPrice(price);
   };
-
-  console.log(items)
 
   return (
     <div>
@@ -223,7 +221,7 @@ export default function UpdatePackage() {
                 </div>
               </div>
               <div className="flex flex-col gap-2">
-                {allItems.items.length ? (
+                {allItems.length ? (
                   <span className="text-sm text-info relative -bottom-1">{` ${items.length} Items Selected (${totalPrice}tk)`}</span>
                 ) : null}
                 <label
@@ -231,7 +229,7 @@ export default function UpdatePackage() {
                   className="btn btn-wide"
                   onClick={setValue}
                 >
-                  {allItems.items.length ? `ReSelect!` : "Select Item"}
+                  {allItems.length ? `ReSelect!` : "Select Item"}
                 </label>
               </div>
             </div>

@@ -1,32 +1,17 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useGetItemsQuery } from "../features/item/itemAPI";
-import Loading from "./Loading";
+import SelectedItems from "../pages/Package/AllPackages/SelectedItems";
+import UnselectedItems from "../pages/Package/AllPackages/UnselectedItems";
 
-export default function ChooseItem({ items, setItems, totalPrice, setTotalPrice }) {
-  const navigate = useNavigate();
-  const { data, isFetching, isError } = useGetItemsQuery();
+export default function ChooseItem({
+  items,
+  setItems,
+  totalPrice,
+  setTotalPrice,
+}) {
 
-  if (isFetching) return <Loading />;
-  if (isError) navigate("/items");
-
-  const handleCheck = (e) => {
-    let { checked, value } = e.target;
-    value = JSON.parse(value);
-
-    if (checked) {
-      items = [...items, value]
-      setItems(items)
-    } else {
-      items = items.filter((item) => item.id !== value.id);
-      setItems(items)
-    }
-
-    totalPrice = 0
-    items.forEach((item) => {
-      setTotalPrice(totalPrice += item.price);
-    });
-
+  const resetItems = () => {
+    setItems([]);
+    setTotalPrice(0);
   };
 
   return (
@@ -34,17 +19,49 @@ export default function ChooseItem({ items, setItems, totalPrice, setTotalPrice 
       <input type="checkbox" id="my-modal" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box  w-11/12 max-w-3xl">
-          <label
-            htmlFor="my-modal"
-            className="btn btn-error btn-sm btn-circle absolute right-2 top-2"
-          >
-            ✕
-          </label>
           <h3 className="font-bold text-center text-xl mb-2">
             Select the Items for this package
           </h3>
           <div className="py-4">
-            <div className=" grid grid-cols-3 gap-x-2">
+            <div className="mt-4 flex justify-between items-center mb-2">
+              <h5 className="font-semibold">
+                Total Item: {items.length ? totalPrice : 0}৳
+              </h5>
+              <p className="btn btn-sm btn-circle">{items.length}</p>
+            </div>
+            {/* ------------------ Selected Item Table ------------------ */}
+            <SelectedItems
+              selItems={items}
+              setSelItems={setItems}
+              totalPrice={totalPrice}
+              setTotalPrice={setTotalPrice}
+            />
+            {/* ------------------ Selected Item Table ^ ------------------ */}
+
+            {/* ------------------ Unselected Item Table ------------------ */}
+            <UnselectedItems
+              selItems={items}
+              setSelItems={setItems}
+              totalPrice={totalPrice}
+              setTotalPrice={setTotalPrice}
+            />
+            {/* ------------------ Unselected Item Table ^ ------------------ */}
+          </div>
+          <div className="modal-action flex flex-wrap gap-3">
+            <label  onClick={resetItems} htmlFor="my-modal" className="btn btn-sm btn-error">
+              Cancel
+            </label>
+            <label htmlFor="my-modal" className="btn btn-sm btn-success">
+              Select!
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* <div className=" grid grid-cols-3 gap-x-2">
               {data.data.map((item) => (
                 <div
                   key={item._id}
@@ -66,21 +83,4 @@ export default function ChooseItem({ items, setItems, totalPrice, setTotalPrice 
                   </label>
                 </div>
               ))}
-            </div>
-            <div className="mt-6 ml-2">
-              <h5 className="font-semibold"> Total Item: {items.length ? totalPrice : 0}৳</h5>
-            </div>
-          </div>
-          <div className="modal-action">
-            <label
-              htmlFor="my-modal"
-              className="btn btn-wide mx-auto btn-success"
-            >
-              Select!
-            </label>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+            </div> */

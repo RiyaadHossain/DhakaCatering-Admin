@@ -49,7 +49,7 @@ export default function UpdatePackageItem({
           >
             ✕
           </label>
-          <h3 className="font-bold text-center font-mono text-2xl mb-2">
+          <h3 className="font-semibold text-center text-2xl mb-2">
             Select the Items for this package
           </h3>
           <div className="py-4">

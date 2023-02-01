@@ -89,7 +89,7 @@ export default function PackageTableRow({ item, i }) {
           </div>
         </div>
       </td>
-      <td>{item.allItems.items.length}</td>
+      <td>{item.allItems.length}</td>
       <td>{item.price}</td>
       <td>
         {item.status === "active" ? (

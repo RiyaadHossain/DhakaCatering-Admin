@@ -25,29 +25,31 @@ export default function AddPackage() {
     formState: { errors },
   } = useForm();
 
-  const [
-    createPackage,
-    { isLoading, isError, isSuccess, error },
-  ] = usePostPackageMutation();
+  const [createPackage, { isLoading, isError, isSuccess, error }] =
+    usePostPackageMutation();
 
   const submitForm = async (packageData) => {
     setLoading(true);
-    items = items.map((item) => item.id);
+    const allItems = items.map((item) => {
+      return { id: item._id, qty: item.qty, totalPrice: item.totalPrice };
+    });
     const imageData = packageData?.imgURL[0];
     const formData = new FormData();
     formData.append("image", imageData);
     const URL = `https://api.imgbb.com/1/upload?key=${imgStorage_key}`;
     const { data } = await axios.post(URL, formData);
+
     if (data.success) {
       packageData = {
+        allItems,
         ...packageData,
-        allItems: { items, totalPrice },
         image: { title: data.data.title, url: data.data.url },
       };
 
       createPackage({ token, packageData });
       setLoading(false);
     } else {
+      setLoading(false);
       MySwal.fire({
         title: <strong>Oops!</strong>,
         html: <span>Cloundn't upload the image.</span>,
@@ -64,7 +66,7 @@ export default function AddPackage() {
     if (isSuccess) {
       MySwal.fire({
         title: <strong>Great!</strong>,
-        html: <span>Create a new item Successfully.</span>,
+        html: <span>Created Package item Successfully.</span>,
         icon: "success",
       });
     }
@@ -121,7 +123,7 @@ export default function AddPackage() {
               </label>
               <input
                 type="file"
-                {...register("imgURL", { required: true })}
+                {...register("imgURL" /* { required: true } */)}
                 className="file-input w-full"
               />
               {errors.imgURL && (
