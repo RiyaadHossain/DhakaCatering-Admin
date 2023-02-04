@@ -23,13 +23,18 @@ export default function UpdatePackageItem({
             Select the Items for this package
           </h3>
           <div className="py-4">
+            <div className="mt-6 flex items-center justify-between">
+              <h5 className="font-semibold">
+                Total Price: {items.length ? totalPrice : 0}৳
+              </h5>
+              <span className="btn btn-square btn-sm mb-4">{items.length}</span>
+            </div>
             {/* ________ Selected Items ________ */}
             <UpdateSelectedItems
               items={items}
               setItems={setItems}
               setTotalPrice={setTotalPrice}
             />
-            {/* ________ Selected Items ________ */}
 
             {/* ________ Unselected Items ________ */}
             <UpdateUnselectedItems
@@ -38,13 +43,6 @@ export default function UpdatePackageItem({
               totalPrice={totalPrice}
               setTotalPrice={setTotalPrice}
             />
-            {/* ________ Unselected Items ________ */}
-
-            <div className="mt-6 ml-2">
-              <h5 className="font-semibold">
-                Total Item: {items.length ? totalPrice : 0}৳
-              </h5>
-            </div>
           </div>
           <div className="modal-action">
             <label
