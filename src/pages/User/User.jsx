@@ -27,13 +27,13 @@ export default function User() {
     <>
       <PageHeader title="User Details" />
       <div className="py-5 md:py-12">
-        <div className="card max-w-xl mx-auto bg-slate-200 shadow-xl ">
+        <div className="card max-w-xl mx-auto bg-slate-300 text-slate-800 shadow-xl ">
           <UserBadge />
           <figure className="px-10">
             <img
               src={imageUrl}
               alt={fullName}
-              className="rounded-full object-cover h-96 w-96"
+              className="rounded-full border-2 object-cover h-96 w-96"
             />
           </figure>
           <div className="card-body items-start text-left mt-4">

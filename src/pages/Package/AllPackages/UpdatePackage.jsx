@@ -55,7 +55,9 @@ export default function UpdatePackage() {
   const handleUpdate = async (packageData) => {
     let data;
     setLoading(true);
-    items = items.map(item => item._id)
+    const allItems = items.map((item) => {
+      return { id: item._id, qty: item.qty, totalPrice: item.totalPrice };
+    });
     const imageData = packageData?.imgURL[0];
 
     if (imageData) {
@@ -67,8 +69,8 @@ export default function UpdatePackage() {
 
     if (!imageData) {
       packageData = {
+        allItems,
         ...packageData,
-        allItems: {items, totalPrice},
         image: { title: image.title, url: image.url },
       };
 
@@ -76,8 +78,8 @@ export default function UpdatePackage() {
       setLoading(false);
     } else if (data?.success) {
       packageData = {
+        allItems,
         ...packageData,
-        allItems: {items, totalPrice},
         image: { title: data.data.title, url: data.data.url },
       };
 

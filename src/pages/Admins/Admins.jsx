@@ -14,7 +14,7 @@ export default function Admins() {
 
   if (isFetching) return <Loading />;
 
-  const admins = data.users.filter((user) => user.role === "Admin");
+  const admins = data.users.filter((user) => user.role.includes("Admin"));
 
   return (
     <div>
@@ -30,7 +30,6 @@ export default function Admins() {
                 <th>Items</th>
                 <th>Price</th>
                 <th>Status</th>
-                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -42,13 +41,13 @@ export default function Admins() {
         </div>
       ) : (
         <div className=" h-[50vh] flex set-center flex-col gap-5">
-          <h3 className="text-2xl">No more Item is added yet</h3>
+          <h3 className="text-2xl">No Admin is added yet</h3>
           <button
-            onClick={() => navigate("/add-item")}
+            onClick={() => navigate("/make-admin")}
             className="btn btn-success btn-sm"
           >
             <BsPlusCircleFill className="mr-1" />
-            Add New
+            Add Admin
           </button>
         </div>
       )}
