@@ -153,7 +153,7 @@ export default function UpdatePackage() {
                 <label className="label">
                   <span className="label-text">
                     Image:
-                  </span>
+                  </span> 
                 </label>
                 <input
                   type="file"
