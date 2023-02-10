@@ -35,6 +35,7 @@ export default function GalleryModal({ galleryModal, setGalleryModal }) {
       setTimeout(() => {
         setGalleryModal(false);
       }, 1500);
+      
     } else {
       toast.error("ImageBB server is down. Try later");
     }

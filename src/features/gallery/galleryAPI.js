@@ -23,7 +23,7 @@ const galleryAPI = apiSlice.injectEndpoints({
                 },
                 body: data
             }),
-            providesTags: ["Gallery"]
+            invalidatesTags: ["Gallery"]
         }),
         createGalleryPhoto: build.mutation({
             query: ({ token, data }) => ({
@@ -35,7 +35,7 @@ const galleryAPI = apiSlice.injectEndpoints({
                 },
                 body: data
             }),
-            providesTags: ["Gallery"]
+            invalidatesTags: ["Gallery"]
         }),
         deleteGalleryPhoto: build.mutation({
             query: ({ token, id }) => ({
@@ -46,7 +46,7 @@ const galleryAPI = apiSlice.injectEndpoints({
                     'Authorization': `Bearer ${token}`
                 },
             }),
-            providesTags: ["Gallery"]
+            invalidatesTags: ["Gallery"]
         }),
     })
 })

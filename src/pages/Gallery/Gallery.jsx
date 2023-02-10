@@ -22,18 +22,26 @@ export default function Gallery() {
     </button>
   );
 
-  if(isLoading) return <Loading />;
+  if (isLoading) return <Loading />;
 
   return (
     <div>
       <PageHeader
         title="Gallery"
-        button={button} /* quantity={users.length.toString()} */
+        button={button}
+        quantity={data.gallery.length.toString()}
       />
       <div className="gallery">
-        {data.gallery.map((gallery, i) => (
-          <GalleryPhoto key={i} gallery={gallery} />
-        ))}
+        {data.gallery.length ? (
+          data.gallery.map((gallery, i) => (
+            <GalleryPhoto key={i} gallery={gallery} />
+          ))
+        ) : (
+          <div className="text-xl mt-32">
+            No Gallery Image is added yet
+            <div className="text-center mt-2">{button}</div>
+          </div>
+        )}
       </div>
       <GalleryModal
         galleryModal={galleryModal}
