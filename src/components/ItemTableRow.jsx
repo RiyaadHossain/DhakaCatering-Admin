@@ -85,12 +85,29 @@ export default function ItemTableRow({ item, i }) {
             </div>
           </div>
           <div>
-            <div className="font-bold">{item.name}</div>
+            <div className="font-bold">
+              {item.name}
+              {item.discountedPrice ? (
+                <span className="bg-slate-600 px-2 rounded-md text-sm font-normal ml-2">{item.price - item.discountedPrice}tk off</span>
+              ) : null}
+            </div>
             <div className="badge badge-ghost badge-sm">{item.category}</div>
           </div>
         </div>
       </td>
-      <td>{item.price}</td>
+      <td>
+        {item.discountedPrice ? (
+          <>
+            <span className="text-xs line-through font-light text-slate-400">
+              {item.price}
+            </span>
+            <br />
+            {item.discountedPrice}
+          </>
+        ) : (
+          <span>{item.price}</span>
+        )}
+      </td>
       <td>
         {item.status === "active" ? (
           <span className="badge badge-success badge-sm">Active</span>

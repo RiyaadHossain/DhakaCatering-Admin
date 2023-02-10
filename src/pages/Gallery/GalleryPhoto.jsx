@@ -1,6 +1,5 @@
 import React from "react";
-import { BsFillTrash2Fill, BsFillTrashFill, BsFillXCircleFill, BsPencilFill } from "react-icons/bs";
-import { MdDelete } from "react-icons/md";
+import {  BsFillTrashFill, /* BsPencilFill */ } from "react-icons/bs";
 import { useDeleteGalleryPhotoMutation } from "../../features/gallery/galleryAPI";
 import { getToken } from "../../utils/token";
 

@@ -46,7 +46,8 @@ export default function UpdateItem() {
 
   if (loading || isLoading || itemLoading) return <Loading />;
 
-  let { name, price, description, image, category, status } = data?.data;
+  let { name, price, description, image, category, status, discountedPrice } =
+    data?.data;
 
   const handleUpdate = async (itemData) => {
     setLoading(true);
@@ -92,22 +93,35 @@ export default function UpdateItem() {
                 </span>
               )}
             </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Price</span>
-              </label>
-              <input
-                type="text"
-                placeholder="90tk"
-                defaultValue={price}
-                className="input input-bordered"
-                {...register("price", { required: true })}
-              />
-              {errors.price && (
-                <span className="text-error text-xs text-left mt-1">
-                  Price is required
-                </span>
-              )}
+            <div className="flex gap-2">
+              <div className="form-control flex-1">
+                <label className="label">
+                  <span className="label-text">Price</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="90tk"
+                  defaultValue={price}
+                  className="input input-bordered"
+                  {...register("price", { required: true })}
+                />
+                {errors.price && (
+                  <span className="text-error text-xs text-left mt-1">
+                    Price is required
+                  </span>
+                )}
+              </div>
+              <div className="form-control flex-1">
+                <label className="label">
+                  <span className="label-text">Discount Price</span>
+                </label>
+                <input
+                  type="text"
+                  defaultValue={discountedPrice}
+                  className="input input-bordered"
+                  {...register("discountedPrice")}
+                />
+              </div>
             </div>
             <div className="flex items-end gap-5 my-3">
               <img
