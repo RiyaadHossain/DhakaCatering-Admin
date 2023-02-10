@@ -15,7 +15,6 @@ export default function UserTableRow({ user, i, page }) {
     useUpdateUserMutation();
 
   const starUser = (star) => {
-    console.log(user._id);
     updateUser({ token, id: user._id, data: {star} });
   };
 

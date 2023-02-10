@@ -17,6 +17,7 @@ import { BsHandbagFill } from "react-icons/bs";
 import { useGetSidebarDataQuery } from "../features/statData/statDataAPI";
 import { getToken } from "../utils/token";
 import Loading from "../components/Loading";
+import { AiFillPicture } from "react-icons/ai";
 
 export default function Sidebar() {
   const token = getToken();
@@ -31,7 +32,8 @@ export default function Sidebar() {
   const { data, isFetching } = useGetSidebarDataQuery(token);
   if (isFetching) return <Loading />;
 
-  const { users, packages, orders, orderRequests, items, admins } = data.data;
+  const { users, packages, orders, orderRequests, items, admins, gallery } =
+    data.data;
 
   return (
     <div className="drawer-side">
@@ -102,6 +104,15 @@ export default function Sidebar() {
               Users
             </div>
             <span className="sidebar-num">{users}</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/gallery">
+            <div>
+              <AiFillPicture className="sidebar-icon" />
+              Gallery
+            </div>
+            <span className="sidebar-num">{gallery}</span>
           </NavLink>
         </li>
         <li>

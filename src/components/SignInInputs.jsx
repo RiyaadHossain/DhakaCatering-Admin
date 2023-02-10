@@ -19,7 +19,7 @@ export default function SignInInputs() {
 
   useEffect(() => {
     if (isLoading) toast.loading("Signing In...", { id: "err", duration: 500 });
-    if (isError) toast.error(error, { id: "err" });
+    if (isError) toast.error(error.data.error, { id: "err" });
     if (data?.status === "fail") toast.error(data.error, { id: "err" });
     if (data?.status === "success") {
       toast.success(data?.message, { id: "succ" });

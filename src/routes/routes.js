@@ -26,6 +26,7 @@ import OrderRequest from "../pages/OrderRequest/OrderRequest";
 import OrderRequestDetails from "../pages/OrderRequest/OrderRequestDetails";
 import Orders from "../pages/Orders/Orders";
 import Error from "../pages/Error/Error";
+import Gallery from "../pages/Gallery/Gallery";
 
 
 export const routes = createBrowserRouter([
@@ -102,9 +103,14 @@ export const routes = createBrowserRouter([
                 path: "users",
                 element: <Users />
             },
+
             {
                 path: "user/:id",
                 element: <User />
+            },
+            {
+                path: "gallery",
+                element: <Gallery />
             },
             {
                 path: "admins",
