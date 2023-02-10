@@ -30,7 +30,7 @@ export default function TableRow({ order: { userId, foodId }, i }) {
         className="cursor-pointer"
         onClick={() => navigate(`/package/${foodId._id}`)}
       >
-        {foodId.name} ({foodId.allItems.items.length})
+      {foodId.name} ({foodId.allItems.length})
       </td>
       <td>{foodId.price}tk</td>
       <td>{moment(foodId.createdAt).format("DD MMM YYYY")}</td>

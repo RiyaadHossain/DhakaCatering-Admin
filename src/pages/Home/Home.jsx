@@ -19,13 +19,14 @@ export default function Home() {
   const token = getToken();
   const navigate = useNavigate();
   const { data, isFetching } = useLeaderboradDataQuery(token);
-  const {data: user, isFetching: userFetching} = useUserPersistencyQuery(token)
+  const { data: user, isFetching: userFetching } =
+    useUserPersistencyQuery(token);
   const { data: statDataF, isFetching: statFetching } =
     useGetStatDataQuery(token);
   if (isFetching || statFetching || userFetching) return <Loading />;
 
   const { packages, users } = data?.data;
-  const { userStat, packageStat, itemStat, saleStat } = statDataF.data;
+  const { userStat, packageStat, itemStat, saleStat } = statDataF?.data;
 
   const thanks = () => {
     toast.success("Never lose hope. Allah is always with us.", {

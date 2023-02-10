@@ -1,21 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { useUpdateUserMutation } from "../../features/user/userAPI";
+import { getToken } from "../../utils/token";
+import { toast } from "react-hot-toast";
+import Loading from "../../components/Loading";
 
 export default function UserTableRow({ user, i, page }) {
+  const token = getToken();
+  const navigate = useNavigate();
+  const goToPage = () => navigate(`/user/${user._id}`);
 
-  const navigate = useNavigate()
+  const [updateUser, { isLoading, isSuccess, isError }] =
+    useUpdateUserMutation();
 
-  const goToPage = () => {
-    navigate(`/user/${user._id}`)
-  }
+  const starUser = (star) => {
+    console.log(user._id);
+    updateUser({ token, id: user._id, data: {star} });
+  };
 
+  useEffect(() => {
+    if (isSuccess) toast.success("User status updated", { id: "succ" });
+    if (isError) toast.error("Internal Server Error", { id: "err" });
+  }, [isSuccess, isError]);
+
+  if (isLoading) return <Loading />;
   return (
-    <tr
-      onClick={page && goToPage}
-      className={`${page && "cursor-pointer"} hover`}
-    >
+    <tr className="hover">
       <th className="text-right">{i + 1}</th>
-      <td>
+      <td onClick={goToPage} className="cursor-pointer">
         <div className="flex items-center space-x-3">
           <div className="avatar">
             <div className="mask mask-squircle w-12 h-12">
@@ -30,6 +43,19 @@ export default function UserTableRow({ user, i, page }) {
       </td>
       <td>{user.contactNumber}</td>
       <td>{user.email}</td>
+      <td className="px-10">
+        {user.star ? (
+          <AiFillStar
+            className="text-amber-400 cursor-pointer"
+            onClick={() => starUser(false)}
+          />
+        ) : (
+          <AiOutlineStar
+            className="text-amber-400 cursor-pointer"
+            onClick={() => starUser(true)}
+          />
+        )}
+      </td>
       <td>
         <span
           className={`badge badge-${

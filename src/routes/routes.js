@@ -25,12 +25,14 @@ import UpdateOffer from "../pages/Offer/AllOffers/UpdateOffer";
 import OrderRequest from "../pages/OrderRequest/OrderRequest";
 import OrderRequestDetails from "../pages/OrderRequest/OrderRequestDetails";
 import Orders from "../pages/Orders/Orders";
+import Error from "../pages/Error/Error";
 
 
 export const routes = createBrowserRouter([
     {
         path: "/",
         element: <PrivateRoute><Main /></PrivateRoute>,
+        errorElement: <Error />,
         children: [
             {
                 path: "/",

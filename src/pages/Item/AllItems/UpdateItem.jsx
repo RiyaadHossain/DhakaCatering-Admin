@@ -109,17 +109,22 @@ export default function UpdateItem() {
                 </span>
               )}
             </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">
-                  Image : <span className="text-xs">{image.title}</span>
-                </span>
-              </label>
-              <input
-                type="file"
-                {...register("imgURL")}
-                className="file-input w-full"
+            <div className="flex items-end gap-5 my-3">
+              <img
+                src={image.url}
+                alt=""
+                className="w-52 h-52 object-cover rounded-md"
               />
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Image :</span>
+                </label>
+                <input
+                  type="file"
+                  {...register("imgURL")}
+                  className="file-input w-full"
+                />
+              </div>
             </div>
             <div className="form-control">
               <label className="label">

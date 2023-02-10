@@ -10,7 +10,8 @@ const userAPI = apiSlice.injectEndpoints({
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 }
-            })
+            }),
+            providesTags: ["Users"]
         }),
         getUser: build.query({
             query: ({ token, id }) => ({
@@ -20,9 +21,22 @@ const userAPI = apiSlice.injectEndpoints({
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 }
-            })
-        })
+            }),
+            providesTags: ["User"]
+        }),
+        updateUser: build.mutation({
+            query: ({ token, id, data }) => ({
+                url: `/admin-data/user/${id}`,
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: data
+            }),
+            invalidatesTags: ["Users", "User"]
+        }),
     })
 })
 
-export const { useGetUsersQuery, useGetUserQuery } = userAPI 
+export const { useGetUsersQuery, useGetUserQuery, useUpdateUserMutation } = userAPI 

@@ -29,12 +29,13 @@ export default function Users() {
                 <th>Name</th>
                 <th>Phone</th>
                 <th>email</th>
+                <th></th>
                 <th>Status</th>
               </tr>
             </thead>
             <tbody>
               {users.map((user, i) => (
-                <UserTableRow i={i} user={user} page={true} />
+                <UserTableRow key={i} i={i} user={user} page={true} />
               ))}
             </tbody>
           </table>
