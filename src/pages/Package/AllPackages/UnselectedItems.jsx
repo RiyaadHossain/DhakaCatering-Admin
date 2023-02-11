@@ -41,10 +41,9 @@ export default function UnselectedItems({
       (item) => item.category === category
     );
   }
-  if (category === 'All') {
-    filteredItems = unselectedItems
+  if (category === "All" || category === "default") {
+    filteredItems = unselectedItems;
   }
-  console.log(category);
 
   return (
     <>
