@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Loading from "../../../components/Loading";
 import { useGetItemsQuery } from "../../../features/item/itemAPI";
 
@@ -8,7 +8,7 @@ export default function UnselectedItems({
   selItems,
   setSelItems,
 }) {
-
+  const [category, setCategory] = useState("");
   const { data, isFetching } = useGetItemsQuery();
   if (isFetching) return <Loading />;
 
@@ -35,10 +35,35 @@ export default function UnselectedItems({
 
   const itemsId = selItems.map((item) => item._id);
   const unselectedItems = items.filter((item) => !itemsId.includes(item._id));
+  let filteredItems = unselectedItems;
+  if (category) {
+    filteredItems = unselectedItems.filter(
+      (item) => item.category === category
+    );
+  }
+  if (category === 'All') {
+    filteredItems = unselectedItems
+  }
+  console.log(category);
 
   return (
     <>
-      <p className="font-semibold mb-2 mt-10">Select More Items -</p>
+      <div className="flex items-center justify-between mt-8 mb-3">
+        <p className="font-semibold">Select More Items -</p>
+        <select
+          defaultValue="default"
+          onClick={(e) => setCategory(e.target.value)}
+          className="select w-full max-w-[250px] input-bordered bg-slate-700"
+        >
+          <option disabled value="default">
+            Select Category
+          </option>
+          <option value="Breakfast">Breakfast</option>
+          <option value="Lunch">Lunch</option>
+          <option value="Dinner">Dinner</option>
+          <option value="All">All</option>
+        </select>
+      </div>
       <div className="overflow-x-auto w-full">
         <table className="table w-full border rounded-t-lg">
           {/* <!-- head --> */}
@@ -51,7 +76,7 @@ export default function UnselectedItems({
           </thead>
           <tbody>
             {/*  row  */}
-            {unselectedItems.map((item) => (
+            {filteredItems.map((item) => (
               <tr key={item._id}>
                 <th>
                   <label onClick={(e) => handleCheck(e)}>

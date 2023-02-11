@@ -1,6 +1,6 @@
 import React from "react";
-import SelectedItems from "../pages/Package/AllPackages/SelectedItems";
-import UnselectedItems from "../pages/Package/AllPackages/UnselectedItems";
+import SelectedItems from "./SelectedItems";
+import UnselectedItems from "./UnselectedItems";
 
 export default function ChooseItem({
   items,
@@ -8,7 +8,6 @@ export default function ChooseItem({
   totalPrice,
   setTotalPrice,
 }) {
-
   const resetItems = () => {
     setItems([]);
     setTotalPrice(0);
@@ -48,7 +47,11 @@ export default function ChooseItem({
             {/* ------------------ Unselected Item Table ^ ------------------ */}
           </div>
           <div className="modal-action flex flex-wrap gap-3">
-            <label  onClick={resetItems} htmlFor="my-modal" className="btn btn-sm btn-error">
+            <label
+              onClick={resetItems}
+              htmlFor="my-modal"
+              className="btn btn-sm btn-error"
+            >
               Cancel
             </label>
             <label htmlFor="my-modal" className="btn btn-sm btn-success">
@@ -60,27 +63,3 @@ export default function ChooseItem({
     </div>
   );
 }
-
-/* <div className=" grid grid-cols-3 gap-x-2">
-              {data.data.map((item) => (
-                <div
-                  key={item._id}
-                  className="flex items-center"
-                  onChange={(e) => handleCheck(e)}
-                >
-                  <label className="cursor-pointer label gap-2">
-                    <input
-                      value={JSON.stringify({
-                        id: item._id,
-                        price: item.price,
-                      })}
-                      type="checkbox"
-                      className="checkbox checkbox-sm"
-                    />
-                    <span className="label-text">
-                      {item.name} ({item.price}৳)
-                    </span>
-                  </label>
-                </div>
-              ))}
-            </div> */

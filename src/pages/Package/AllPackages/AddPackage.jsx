@@ -8,7 +8,7 @@ import Loading from "../../../components/Loading";
 import { usePostPackageMutation } from "../../../features/package/packageAPI";
 import { toast } from "react-hot-toast";
 import { getToken } from "../../../utils/token";
-import ChooseItem from "../../../components/ChooseItem";
+import ChooseItem from "./ChooseItem";
 
 export default function AddPackage() {
   let [items, setItems] = useState([]);
