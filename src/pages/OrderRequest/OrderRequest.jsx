@@ -38,6 +38,7 @@ export default function OrderRequest() {
                 <th>Name</th>
                 <th>Items</th>
                 <th>Price</th>
+                <th>Date</th>
                 <th>Status</th>
                 <th></th>
               </tr>

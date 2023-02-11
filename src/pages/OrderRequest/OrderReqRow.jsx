@@ -1,3 +1,4 @@
+import moment from "moment/moment";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -15,6 +16,8 @@ export default function OrderReqRow({ item, i }) {
     bbg = "bg-success";
   }
 
+  const date = moment(item.date).format("DD MMM YYYY")
+
   return (
     <tr>
       <th className="text-center">{i + 1}</th>
@@ -24,11 +27,12 @@ export default function OrderReqRow({ item, i }) {
       </td>
       <td>{item.allItems.length}</td>
       <td>{item.totalPrice}</td>
-      <th>
+      <td>
         <span className={`badge badge-sm ${bbg} text-black font-medium`}>
           {item.status}
         </span>
-      </th>
+      </td>
+      <td>{date}</td>
       <th>
         <button
           className="btn btn-sm btn-info"

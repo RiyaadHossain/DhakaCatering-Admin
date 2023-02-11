@@ -6,11 +6,11 @@ import { IoChatbubblesSharp } from "react-icons/io5";
 import {
   MdFastfood,
   MdLocalOffer,
-  MdAdminPanelSettings,
+  // MdAdminPanelSettings,
   MdLeaderboard,
 } from "react-icons/md";
 import { BiLogOutCircle } from "react-icons/bi";
-import { RiAdminFill } from "react-icons/ri";
+// import { RiAdminFill } from "react-icons/ri";
 import { IoFastFoodSharp } from "react-icons/io5";
 import { toast } from "react-hot-toast";
 import { BsHandbagFill } from "react-icons/bs";
@@ -32,7 +32,7 @@ export default function Sidebar() {
   const { data, isFetching } = useGetSidebarDataQuery(token);
   if (isFetching) return <Loading />;
 
-  const { users, packages, orders, orderRequests, items, admins, gallery } =
+  const { users, packages, orders, orderRequests, items, /* admins, */ gallery } =
     data.data;
 
   return (
@@ -115,7 +115,7 @@ export default function Sidebar() {
             <span className="sidebar-num">{gallery}</span>
           </NavLink>
         </li>
-        <li>
+        {/* <li>
           <NavLink to="/admins">
             <div>
               <MdAdminPanelSettings className="sidebar-icon" />
@@ -123,7 +123,7 @@ export default function Sidebar() {
             </div>
             <span className="sidebar-num">{admins}</span>
           </NavLink>
-        </li>
+        </li> */}
         <li>
           <NavLink to="/leaderboard">
             <div>
@@ -132,14 +132,14 @@ export default function Sidebar() {
             </div>
           </NavLink>
         </li>
-        <li>
+        {/* <li>
           <NavLink to="/make-admin">
             <div>
               <RiAdminFill className="sidebar-icon" />
               Make Admin
             </div>
           </NavLink>
-        </li>
+        </li> */}
         <li>
           <NavLink to="/profile">
             <div>

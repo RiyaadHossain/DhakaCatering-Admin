@@ -1,3 +1,4 @@
+import moment from "moment";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -47,7 +48,7 @@ export default function OrderRequestDetails() {
   if (isFetching) return <Loading />;
 
   const {
-    orderRequest: { name, category, allItems, totalPrice, createdBy, status },
+    orderRequest: { name, category, allItems, totalPrice, createdBy, status, date },
   } = data;
 
   if (status === "Pending") {
@@ -64,6 +65,8 @@ export default function OrderRequestDetails() {
     setOrderStatus(updatedStatus);
     updateOReq({ status: updatedStatus, token, id });
   };
+
+  const dateFormatted = moment(date).format("DD MMM YYYY")
 
   return (
     <>
@@ -115,7 +118,8 @@ export default function OrderRequestDetails() {
               </div>
             </div>
             <div>
-              <p className="text-end mb-5 text-lg">
+              <p className="text-end mb-5 font-semibold">{dateFormatted}</p>
+              <p className="text-end mb-3 text-lg">
                 <span className="font-semibold">Price:</span> {totalPrice}৳
               </p>
               <div className="flex gap-5 items-center">
@@ -135,7 +139,9 @@ export default function OrderRequestDetails() {
                     </button>
                   </>
                 ) : (
-                  <button className="btn btn-disabled border-slate-700">Aready {status}</button>
+                  <button className="btn btn-disabled border-slate-700">
+                    Aready {status}
+                  </button>
                 )}
               </div>
             </div>

@@ -29,6 +29,7 @@ export default function Admins() {
                 <th>Name</th>
                 <th>Items</th>
                 <th>Price</th>
+                <th></th>
                 <th>Status</th>
               </tr>
             </thead>
