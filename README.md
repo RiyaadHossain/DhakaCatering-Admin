@@ -4,7 +4,7 @@
 
 <p>Dhaka Catering - a catering service related website. It is a MERN stack catering website that allows users to order food online. Users must sign up to order food, and can also add items to a wishlist, give reviews, make custom orders, and more. The website will provide an easy-to-use interface and an efficient ordering system.</p>
 
-Live Site: https://dhaka-catering.netlify.app/
+Live Site: https://admin-dhaka-catering.netlify.app/
 </br>
 Server Code: https://github.com/RiyaadHossain/DhakaCatering-Backend
 </br>
