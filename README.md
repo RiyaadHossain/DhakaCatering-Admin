@@ -1,4 +1,4 @@
-![alt text](/screenshots/banner.png)
+![alt text](/screenshots/home.png)
 
 # Admin - Dhaka Catering 🍔
 
