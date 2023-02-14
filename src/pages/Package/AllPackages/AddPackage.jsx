@@ -63,10 +63,10 @@ export default function AddPackage() {
   };
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && !isLoading && !isError) {
       MySwal.fire({
         title: <strong>Great!</strong>,
-        html: <span>Created Package item Successfully.</span>,
+        html: <span>Created Package Successfully.</span>,
         icon: "success",
       });
     }

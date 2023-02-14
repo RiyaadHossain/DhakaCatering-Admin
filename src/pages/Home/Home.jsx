@@ -72,7 +72,7 @@ export default function Home() {
       <div className="mt-12 flex flex-wrap items-center justify-center gap-10 sm:bg-base-200 py-14 rounded-md lg:gap-14">
         <div className="card w-96 bg-base-200 shadow-xl image-full">
           <figure>
-            <img src="https://placeimg.com/400/225/arch" alt="Shoes" />
+            <img src="https://images.unsplash.com/photo-1590075865003-e48277faa558?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&h=400&q=80" alt="Islam" />
           </figure>
           <div className="card-body">
             <h2 className="card-title">Bismillah</h2>

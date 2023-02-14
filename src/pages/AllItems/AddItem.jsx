@@ -54,7 +54,7 @@ export default function AddItem() {
   };
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && !isLoading && !isError) {
       MySwal.fire({
         title: <strong>Great!</strong>,
         html: <span>Create a new item Successfully.</span>,
