@@ -18,7 +18,7 @@ const PrivateRoute = ({ children }) => {
     return <Loading />;
   }
 
-  if (!email && !role.inclueds("Admin")) {
+  if (!email && !role?.inclueds("Admin")) {
     return <Navigate to="/signin" state={{ path: pathname }} />;
   }
 
