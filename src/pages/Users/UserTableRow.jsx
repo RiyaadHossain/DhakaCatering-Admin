@@ -6,7 +6,7 @@ import { getToken } from "../../utils/token";
 import { toast } from "react-hot-toast";
 import Loading from "../../components/Loading";
 
-export default function UserTableRow({ user, i, page }) {
+export default function UserTableRow({ user, i }) {
   const token = getToken();
   const navigate = useNavigate();
   const goToPage = () => navigate(`/user/${user._id}`);
@@ -29,14 +29,8 @@ export default function UserTableRow({ user, i, page }) {
       <th className="text-right">{i + 1}</th>
       <td onClick={goToPage} className="cursor-pointer">
         <div className="flex items-center space-x-3">
-          <div className="avatar">
-            <div className="mask mask-squircle w-12 h-12">
-              <img src={user.imageUrl} alt="Avatar Tailwind CSS Component" />
-            </div>
-          </div>
           <div>
             <div className="font-bold">{user.fullName}</div>
-            <div className="badge badge-ghost badge-sm">{user.occupation}</div>
           </div>
         </div>
       </td>
