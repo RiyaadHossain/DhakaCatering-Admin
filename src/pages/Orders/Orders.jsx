@@ -24,6 +24,7 @@ export default function Orders() {
                 <th></th>
                 <th>User</th>
                 <th>Package</th>
+                <th>Person</th>
                 <th>Total Purchase</th>
                 <th>Date</th>
               </tr>
