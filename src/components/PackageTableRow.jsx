@@ -8,7 +8,10 @@ import {
 } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { useDeletePackageMutation, useUpdatePackageMutation } from "../features/package/packageAPI";
+import {
+  useDeletePackageMutation,
+  useUpdatePackageMutation,
+} from "../features/package/packageAPI";
 import { getToken } from "../utils/token";
 import Loading from "./Loading";
 
@@ -51,7 +54,6 @@ export default function PackageTableRow({ item, i }) {
     }
     if (isErrorUpdate) toast.error(errorUpdate.data.error, { id: "err" });
     if (isSuccessUpdate) {
-      console.log('hello');
       toast.success("Item status Updated successfully", { id: "succ" });
     }
     // if (isLoadingUpdate && !isSuccessUpdate && !isErrorUpdate)
@@ -69,7 +71,6 @@ export default function PackageTableRow({ item, i }) {
   if (isLoading) return <Loading />;
 
   const handleUpdate = (status) => {
-    console.log(status)
     updatePackage({ token, id: item._id, packageData: { status } });
   };
 
@@ -88,6 +89,9 @@ export default function PackageTableRow({ item, i }) {
             <div className="badge badge-ghost badge-sm">{item.category}</div>
           </div>
         </div>
+      </td>
+      <td>
+        <span className={`badge ${item.createdBy === 'Admin' ? 'bg-lime-300' : 'bg-yellow-300'} badge-sm text-slate-900`}>{item.createdBy}</span>
       </td>
       <td>{item.allItems.length}</td>
       <td>{item.price}</td>

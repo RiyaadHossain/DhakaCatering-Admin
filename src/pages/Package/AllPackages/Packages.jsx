@@ -24,7 +24,11 @@ export default function Packages() {
 
   return (
     <div>
-      <PageHeader title="Packages" quantity={data?.data?.length} button={button} />
+      <PageHeader
+        title="Packages"
+        quantity={data?.data?.length}
+        button={button}
+      />
       {data?.data?.length ? (
         <div className="overflow-x-auto w-full rounded-t-xl ">
           <table className="table w-full border">
@@ -33,6 +37,7 @@ export default function Packages() {
               <tr>
                 <th></th>
                 <th>Name</th>
+                <th>Create</th>
                 <th>Items</th>
                 <th>Price</th>
                 <th>Status</th>
@@ -49,8 +54,8 @@ export default function Packages() {
         </div>
       ) : (
         <div className=" h-[50vh] flex set-center flex-col gap-5">
-            <h3 className="text-2xl">No Package is added yet!</h3>
-            {button}
+          <h3 className="text-2xl">No Package is added yet!</h3>
+          {button}
         </div>
       )}
     </div>

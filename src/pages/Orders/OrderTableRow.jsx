@@ -3,7 +3,7 @@ import moment from "moment/moment";
 import { useNavigate } from "react-router-dom";
 
 export default function TableRow({
-  order: { userId, foodId, totalPrice, person },
+  order: { userId, foodId, totalPrice, person, createdBy },
   i,
 }) {
   const navigate = useNavigate();
