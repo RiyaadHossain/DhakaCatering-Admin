@@ -3,7 +3,7 @@ import moment from "moment/moment";
 import { useNavigate } from "react-router-dom";
 
 export default function TableRow({
-  order: { userId, foodId, totalPrice, person, createdBy },
+  order: { userId, foodId, totalPrice, person, createdAt },
   i,
 }) {
   const navigate = useNavigate();
@@ -31,13 +31,13 @@ export default function TableRow({
       </td>
       <td
         className="cursor-pointer"
-        onClick={() => navigate(`/package/${foodId._id}`)}
+        onClick={() => navigate(`/package/${foodId?._id}`)}
       >
-        {foodId.name} ({foodId.allItems.length})
+        {foodId?.name} ({foodId.allItems.length})
       </td>
       <td>{person}</td>
       <td>{totalPrice}tk</td>
-      <td>{moment(foodId.createdAt).format("DD MMM YYYY")}</td>
+      <td>{moment.utc(createdAt).format("DD MMM YYYY")}</td>
     </tr>
   );
 }

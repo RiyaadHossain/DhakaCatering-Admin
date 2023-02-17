@@ -10,7 +10,8 @@ export default function Orders() {
   const { data, isFetching } = useGetOrdersQuery(token);
 
   if (isFetching) return <Loading />;
-  const orders = data?.orders;
+  let orders = data?.orders;
+  orders = orders.filter((order) => order.foodId && order.userId);
 
   return (
     <div>
@@ -38,7 +39,9 @@ export default function Orders() {
         </div>
       ) : (
         <div className=" h-[50vh] flex set-center flex-col gap-5">
-          <h3 className="text-2xl">No more Odder is being created is added yet</h3>
+          <h3 className="text-2xl">
+            No more Odder is being created is added yet
+          </h3>
         </div>
       )}
     </div>

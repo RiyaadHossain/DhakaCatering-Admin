@@ -16,8 +16,8 @@ import { toast } from "react-hot-toast";
 import { BsHandbagFill } from "react-icons/bs";
 import { useGetSidebarDataQuery } from "../features/statData/statDataAPI";
 import { getToken } from "../utils/token";
-import Loading from "../components/Loading";
 import { AiFillPicture } from "react-icons/ai";
+import SidebarSpinner from "../components/SidebarSpinner";
 
 export default function Sidebar() {
   const token = getToken();
@@ -30,9 +30,9 @@ export default function Sidebar() {
   };
 
   const { data, isFetching } = useGetSidebarDataQuery(token);
-  if (isFetching) return <Loading />;
+  if (isFetching) return <SidebarSpinner />;
 
-  const { users, packages, orders, orderRequests, items, /* admins, */ gallery } =
+  let { users, packages, orders, orderRequests, items, /* admins, */ gallery } =
     data.data;
 
   return (
