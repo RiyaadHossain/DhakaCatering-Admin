@@ -33,7 +33,7 @@ export default function Sidebar() {
   if (isFetching) return <SidebarSpinner />;
 
   let { users, packages, orders, orderRequests, items, /* admins, */ gallery } =
-    data.data;
+    data?.data;
 
   return (
     <div className="drawer-side">
